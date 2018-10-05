@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard1.3;netstandard2.0;net45</TargetFrameworks>
+	  <PlatformTarget>anycpu</PlatformTarget>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>SocketLabs</AssemblyName>
+    <PackageId>SocketLabs</PackageId>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Version>0.1.0.1</Version>
+    <Copyright>(C) 2018 SocketLabs</Copyright>
+    <PackageIconUrl>https://www.socketlabs.com/assets/socketlabs-logo1.png</PackageIconUrl>
+    <Authors>SocketLabs Development Team</Authors>
+    <Product>SocketLabs .Net Client Library</Product>
+    <NoWarn></NoWarn>
+	<TeamCityBuild>false</TeamCityBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TeamCitySignAssembly)' != ''">
+    <SignAssembly>true</SignAssembly> 
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(TEAMCITY_BUILD_PROPERTIES_FILE)' != ''">
+    <TeamCityBuild>true</TeamCityBuild>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.3|AnyCPU'">
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">  
+    <Reference Include="System" /> 
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="help\**" />
+    <EmbeddedResource Remove="help\**" />
+    <None Remove="help\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="InjectionApi\BulkTemplateMessage.cs" />
+    <Compile Remove="InjectionApi\MergeData.cs" />
+    <Compile Remove="InjectionApi\MessageBase.cs" />
+    <Compile Remove="InjectionApi\ValidationResponse.cs" />
+    <Compile Remove="InjectionApi\ValidationResult.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="SocketLabs.shfbproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="System.Net.Http" Version="4.3.3" />
+  </ItemGroup>
+
+  <Target Name="TeamCity" AfterTargets="Build" Condition=" '$(TeamCityBuild)'=='true' AND '$(TargetFileName)' != ''">
+	<GetAssemblyIdentity AssemblyFiles="bin\$(ConfigurationName)\$(TargetFramework)\$(TargetFileName)">
+      <Output TaskParameter="Assemblies" ItemName="AssemblyIdentity" />
+    </GetAssemblyIdentity>
+    <Message Text="##teamcity[buildNumber '%(AssemblyIdentity.Version)']" />
+  </Target>
+  
+</Project>

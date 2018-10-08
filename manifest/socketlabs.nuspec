@@ -5,7 +5,7 @@
         <version>1.0.0.1</version>
         <title>SocketLabs.EmailDelivery</title>
         <authors>SocketLabs</authors>
-        <licenseUrl>https://github.com/SocketLabs/socketlabs-csharp/LICENSE.MD</licenseUrl>
+        <licenseUrl>https://github.com/socketlabs/socketlabs-csharp/blob/master/LICENSE.MD</licenseUrl>
         <projectUrl>https://github.com/SocketLabs/socketlabs-csharp</projectUrl>
         <iconUrl>http://static.socketlabs.com/logos/button_logobig.700x740.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>

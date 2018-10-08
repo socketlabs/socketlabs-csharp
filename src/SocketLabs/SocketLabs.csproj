@@ -8,7 +8,7 @@
     <PackageId>SocketLabs</PackageId>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Version>0.1.0.1</Version>
+    <Version>1.0.0.1</Version>
     <Copyright>(C) 2018 SocketLabs</Copyright>
     <PackageIconUrl>https://www.socketlabs.com/assets/socketlabs-logo1.png</PackageIconUrl>
     <Authors>SocketLabs Development Team</Authors>

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>SocketLabs.EmailDelivery</id>
-        <version>0.0.1-Alpha</version>
+        <version>1.0.0.1</version>
         <title>SocketLabs.EmailDelivery</title>
         <authors>SocketLabs</authors>
         <licenseUrl>https://github.com/SocketLabs/socketlabs-csharp/LICENSE.MD</licenseUrl>

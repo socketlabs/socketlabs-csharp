@@ -21,7 +21,7 @@ The SocketLabs Email Delivery C# library allows you to easily send email message
   * .NET version 4.5 or higher
   * .NET Core 1.0 or higher
   * .NET Standard 1.3 or higher
-* A SocketLabs account. If you don't have one yet, you can [sign up for a free account](https://signup.socketlabs.com/step-1?plan=free-20k) to get started.
+* A SocketLabs account. If you don't have one yet, you can [sign up for a free account](https://signup.socketlabs.com/step-1?plan=free) to get started.
 
 ## Installation
 For most uses we recommend installing the SocketLabs.EmailDelivery package via Nuget. If you have the [Nuget Package Manager](https://www.nuget.org/) installed already, you can add the latest version of the package with the following command:

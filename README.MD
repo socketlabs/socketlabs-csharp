@@ -38,6 +38,11 @@ PM> Install-Package SocketLabs.EmailDelivery
 
 Alternately, you can simply [clone this repository](https://github.com/socketlabs/socketlabs-csharp.git) directly to include the source code in your project.
 
+**Note for Visual Studio 2012 and earlier users**: Due to an issue with dependency requirements, the package manager in VS2012 
+and earlier does not support installation of the current nuget package. In order to install the package directly, all you need to do 
+is download the latest release binaries located at [https://github.com/socketlabs/socketlabs-csharp/releases/](https://github.com/socketlabs/socketlabs-csharp/releases/). 
+Once you download the zip file, extract the files, and add the dll's from ```the lib\net45``` directory as references. 
+You can do this from the project menu by clicking "Add Reference" then going to the browse option and picking the dll's from there.
 
 <a name="getting-started"></a>
 # Getting Started

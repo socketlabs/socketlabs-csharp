@@ -28,7 +28,7 @@ namespace dotNetCoreExample.Examples.Basic
 
             message.CustomHeaders.Add("x-mycustomheader", "I am a message header");
 
-            var attachment = message.Attachments.AddAsync("bus.png", MimeType.PNG, @".\examples\img\bus.png").Result;
+            var attachment = message.Attachments.Add("bus.png", MimeType.PNG, @".\examples\img\bus.png");
             attachment.ContentId = "Bus";
 
             return client.Send(message);

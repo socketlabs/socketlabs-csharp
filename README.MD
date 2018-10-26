@@ -172,6 +172,9 @@ This example demonstrates how to add custom headers to your email message.
 ### [Basic send with a web proxy](https://github.com/socketlabs/socketlabs-csharp/blob/master/Example%20Projects/dotNetCoreExample/Examples/Basic/BasicSendWithProxy.cs)
 This example demonstrates how to use a proxy with your HTTP client.
 
+### [Basic send complex example](https://github.com/socketlabs/socketlabs-csharp/blob/master/Example%20Projects/dotNetCoreExample/Examples/Basic/BasicComplexExample.cs)
+This example demonstrates many features of the Basic Send, including adding multiple recipients, adding message and mailing id's, and adding an embedded image.
+
 ### [Bulk send with multiple recipients](https://github.com/socketlabs/socketlabs-csharp/blob/master/Example%20Projects/dotNetCoreExample/Examples/Bulk/BulkSend.cs)
 This example demonstrates how to send a bulk message to multiple recipients.
 

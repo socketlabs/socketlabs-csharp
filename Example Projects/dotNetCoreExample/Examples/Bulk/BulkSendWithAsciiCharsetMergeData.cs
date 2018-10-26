@@ -37,7 +37,7 @@ namespace dotNetCoreExample.Examples.Bulk
             };
             message.To.Add("recipient1@example.com", mergeDataFor1);
 
-            var recipient2 = message.To.Add("recipient2@example.com", "Recipient #1");
+            var recipient2 = message.To.Add("recipient2@example.com", "Recipient #2");
             recipient2.MergeData.Add("Complete", "✔");
 
             var recipient3 = new BulkRecipient("recipient3@example.com");

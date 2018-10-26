@@ -31,7 +31,7 @@ namespace SocketLabs.InjectionApi
     /// </example>
     public class SocketLabsClient : ISocketLabsClient , IDisposable
     {
-        private string UserAgent { get; } = $"SocketLabs .Net Client/{typeof(SocketLabsClient).GetTypeInfo().Assembly.GetName().Version}";
+        private string UserAgent { get; } = $"SocketLabs-csharp/{typeof(SocketLabsClient).GetTypeInfo().Assembly.GetName().Version}";
 
         private readonly int _serverId;
         private readonly string _apiKey;

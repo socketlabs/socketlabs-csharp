@@ -13,7 +13,7 @@ namespace dotNetCoreExample.Examples.Basic
             var message = new BasicMessage();
 
             message.To.Add("recipient1@example.com");
-            message.To.Add("recipient2@example.com", "Recipient #1");
+            message.To.Add("recipient2@example.com", "Recipient #2");
 
             message.Subject = "Sending Basic Complex Example";
             message.HtmlBody = "<body><p><strong>Lorem Ipsum</strong></p><br /><img src=\"cid:Bus\" /></body>";

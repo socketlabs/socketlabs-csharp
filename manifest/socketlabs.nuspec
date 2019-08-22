@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>SocketLabs.EmailDelivery</id>
-        <version>1.0.0.3</version>
+        <version>1.0.0.4</version>
         <title>SocketLabs.EmailDelivery</title>
         <authors>SocketLabs</authors>
         <licenseUrl>https://github.com/socketlabs/socketlabs-csharp/blob/master/LICENSE.MD</licenseUrl>
@@ -12,7 +12,7 @@
         <description>SocketLabs .Net Client Library.</description>
         <summary>Email Delivery Library for sending transactional and bulk email through the SocketLabs Platform.</summary>
         <releaseNotes>Please see: https://github.com/SocketLabs/socketLabs-csharp/releases</releaseNotes>
-        <copyright>SocketLabs © 2018 - http://www.socketlabs.com</copyright>
+        <copyright>SocketLabs © 2018 - 2019 http://www.socketlabs.com</copyright>
         <tags>SMTP Email Mail Delivery Sending Send Transactional API SDK Service Server</tags>
 		<repository type="git" url="https://github.com/SocketLabs/socketlabs-csharp" />
         <dependencies>

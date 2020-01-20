@@ -1,4 +1,4 @@
-[![SocketLabs](https://www.socketlabs.com/assets/socketlabs-logo1.png)](https://www.socketlabs.com) 
+<a href="https://www.socketlabs.com/developers/" target="_blank"><img src="https://static.socketlabs.com/logos/logo-dark-653x128.png" width="218" height="42"></a>
 # [![Twitter Follow](https://img.shields.io/twitter/follow/socketlabs.svg?style=social&label=Follow)](https://twitter.com/socketlabs) [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/socketlabs/socketlabs-csharp/blob/master/CONTRIBUTING.md)
 <!--
 [![GitHub contributors](https://img.shields.io/github/contributors/socketlabs/csharp-socketlabs.svg)](https://github.com/socketlabs/csharp-socketlabs/graphs/contributors)

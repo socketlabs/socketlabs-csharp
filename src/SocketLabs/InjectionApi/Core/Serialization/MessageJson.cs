@@ -48,6 +48,11 @@ namespace SocketLabs.InjectionApi.Core.Serialization
         public string HtmlBody { get; set; }
 
         /// <summary>
+        /// Gets or sets the AMP portion of the message body.
+        /// </summary>
+        public string AmpBody { get; set; }
+
+        /// <summary>
         /// Gets or sets the Api Template for the message.
         /// </summary>
         public string ApiTemplate { get; set; }

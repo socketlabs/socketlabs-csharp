@@ -2,23 +2,24 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>SocketLabs.EmailDelivery</id>
-        <version>1.0.0.4</version>
+        <version>1.1.0.0</version>
         <title>SocketLabs.EmailDelivery</title>
         <authors>SocketLabs</authors>
         <licenseUrl>https://github.com/socketlabs/socketlabs-csharp/blob/master/LICENSE.MD</licenseUrl>
         <projectUrl>https://github.com/SocketLabs/socketlabs-csharp</projectUrl>
-        <iconUrl>http://static.socketlabs.com/logos/button_logobig.700x740.png</iconUrl>
+        <iconUrl>http://static.socketlabs.com/logos/icon-512x512.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>SocketLabs .Net Client Library.</description>
         <summary>Email Delivery Library for sending transactional and bulk email through the SocketLabs Platform.</summary>
         <releaseNotes>Please see: https://github.com/SocketLabs/socketLabs-csharp/releases</releaseNotes>
-        <copyright>SocketLabs © 2018 - 2019 http://www.socketlabs.com</copyright>
+        <copyright>SocketLabs © 2018 - 2020 http://www.socketlabs.com</copyright>
         <tags>SMTP Email Mail Delivery Sending Send Transactional API SDK Service Server</tags>
-		<repository type="git" url="https://github.com/SocketLabs/socketlabs-csharp" />
+        <repository type="git" url="https://github.com/SocketLabs/socketlabs-csharp" />
         <dependencies>
-			<dependency id="Newtonsoft.Json" version="9.0.1" />  
-			<dependency id="System.Net.Http" version="4.3.3" />  
-		</dependencies>
+            <dependency id="Newtonsoft.Json" version="9.0.1" />
+            <dependency id="System.Net.Http" version="4.3.3" />
+        </dependencies>
+        <authors>Joe Cooper, David Schrenker, Matt Reibach, Ryan Lydzinski (Contributor)</authors>
     </metadata>
     <files>
         <file src="..\src\SocketLabs\bin\Release\net45\SocketLabs.dll" target="lib\net45\SocketLabs.dll" />
@@ -30,7 +31,7 @@
         <file src="..\src\SocketLabs\bin\Release\netstandard2.0\SocketLabs.dll" target="lib\netstandard2.0\SocketLabs.dll" />
         <file src="..\src\SocketLabs\bin\Release\netstandard2.0\SocketLabs.pdb" target="lib\netstandard2.0\SocketLabs.pdb" />
         <file src="..\src\SocketLabs\bin\Release\netstandard2.0\SocketLabs.xml" target="lib\netstandard2.0\SocketLabs.xml" />
-		<file src="..\manifest\license.txt" target="" />
-		<file src="..\manifest\readme.txt" target="" />
+        <file src="..\manifest\license.txt" target="" />
+        <file src="..\manifest\readme.txt" target="" />
     </files>
 </package>

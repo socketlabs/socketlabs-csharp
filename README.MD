@@ -11,6 +11,7 @@ The SocketLabs Email Delivery C# library allows you to easily send email message
 * [Getting Started](#getting-started)
 * [Managing API Keys](#managing-api-keys)
 * [Examples and Use Cases](#examples-and-use-cases)
+* [Version](#version)
 * [License](#license)
 
 
@@ -201,6 +202,11 @@ set and special characters.
 ### [Bulk send with Amp ](https://github.com/socketlabs/socketlabs-csharp/blob/master/Example%20Projects/dotNetCoreExample/Examples/Bulk/BulkSendWithAmpBody.cs)
 This example demonstrates how to send a bulk message with an AMP Html body.
 For more information about AMP please see [AMP Project](https://amp.dev/documentation/)
+
+<a name="version"></a>
+# Version
+* 1.1.0.0 - Adds Amp Html Support
+* 1.0.0.0 - Initial Release
 
 <a name="license"></a>
 # License

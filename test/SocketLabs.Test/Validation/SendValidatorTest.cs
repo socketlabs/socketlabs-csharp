@@ -338,6 +338,27 @@ namespace SocketLabs.Test.Validation
             //Assert
             Assert.IsFalse(actual);
         }
+        
+        [TestMethod]
+        public void HasMessageBody_ReturnsFalse_WhenPlainTextBodyAndHtmlBodyAndApiTemplateAndAmpBodyIsEmpty()
+        {
+            //Arrange
+            var message = new BasicMessage
+            {
+                HtmlBody = string.Empty,
+                PlainTextBody = string.Empty,
+                ApiTemplate = null,
+                AmpBody = string.Empty
+            };
+            var validator = new SendValidator();
+
+            //Act
+            var actual = validator.HasMessageBody(message);
+
+            //Assert
+            Assert.IsFalse(actual);
+        }
+
         #endregion
 
 

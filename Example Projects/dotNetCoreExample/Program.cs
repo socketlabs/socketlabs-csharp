@@ -67,6 +67,10 @@ namespace dotNetCoreExample
             Console.WriteLine("   16:  Bulk Send From DataSource With MergeData ");
             Console.WriteLine("   17:  Bulk Send Complex Example (Everything including the Kitchen Sink) ");
             Console.WriteLine();
+            Console.WriteLine(" Amp Examples: ");
+            Console.WriteLine("   18:  Basic Send With Amp Body ");
+            Console.WriteLine("   19:  Bulk Send With Amp Body ");
+            Console.WriteLine();
             Console.WriteLine("-------------------------------------------------------------------------");
         }
 
@@ -97,6 +101,9 @@ namespace dotNetCoreExample
                 case 15: return "dotNetCoreExample.Examples.Bulk.BulkSendWithAsciiCharsetMergeData";
                 case 16: return "dotNetCoreExample.Examples.Bulk.BulkSendFromDataSourceWithMerge";
                 case 17: return "dotNetCoreExample.Examples.Bulk.BulkSendComplexExample";
+                case 18: return "dotNetCoreExample.Examples.Basic.BasicSendWithAmpBody";
+                case 19: return "dotNetCoreExample.Examples.Bulk.BulkSendWithAmpBody";
+
                 default:
                     Console.WriteLine("Invalid Input (Out of Range)");
                     return null;

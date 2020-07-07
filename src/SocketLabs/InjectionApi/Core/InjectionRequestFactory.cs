@@ -86,6 +86,7 @@ namespace SocketLabs.InjectionApi.Core
                 Subject = message.Subject,
                 TextBody = message.PlainTextBody,
                 HtmlBody = message.HtmlBody,
+                AmpBody = message.AmpBody,
                 MailingId = message.MailingId,
                 MessageId = message.MessageId,
                 CharSet = message.CharSet,

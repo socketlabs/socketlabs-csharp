@@ -67,6 +67,39 @@ namespace dotNetCoreExample.Examples.Bulk
             html.AppendLine("</html>");
             message.HtmlBody = html.ToString();
 
+            // Amp Body option
+            var amp = new StringBuilder();
+            amp.AppendLine("<!doctype html>");
+            amp.AppendLine("<html amp4email>");
+            amp.AppendLine("   <head><title>Complex AMP Email</title><meta charset=\"utf-8\">");
+            amp.AppendLine("  <script async src=\"https://cdn.ampproject.org/v0.js\"></script>");
+            amp.AppendLine("  <style amp4email-boilerplate>body{visibility:hidden}</style>");
+            amp.AppendLine("  <style amp-custom>");
+            amp.AppendLine("    h1 {");
+            amp.AppendLine("      margin: 1rem;");
+            amp.AppendLine("    }");
+            amp.AppendLine("  </style></head>");
+            amp.AppendLine("   <body>");
+            amp.AppendLine("       <h1>AMP Is Enabled</h1>");
+            amp.AppendLine("       <h1>Merged Data</h1>");
+            amp.AppendLine("       <p>");
+            amp.AppendLine("           Motto = <b>%%Motto%%</b> </br>");
+            amp.AppendLine("           Birthday = <b>%%Birthday%%</b> </br>");
+            amp.AppendLine("           Age = <b>%%Age%%</b> </br>");
+            amp.AppendLine("           UpSell = <b>%%UpSell%%</b> </br>");
+            amp.AppendLine("       </p>");
+            amp.AppendLine("       </br>");
+            amp.AppendLine("       <h1>Example of Merge Usage</h1>");
+            amp.AppendLine("       <p>");
+            amp.AppendLine("           Our company motto is '<b>%%Motto%%</b>'. </br>");
+            amp.AppendLine("           Your birthday is <b>%%Birthday%%</b> and you are <b>%%Age%%</b> years old. </br>");
+            amp.AppendLine("           </br>");
+            amp.AppendLine("           <b>%%UpSell%%<b>");
+            amp.AppendLine("       </p>");
+            amp.AppendLine("   </body>");
+            amp.AppendLine("</html>");
+            message.AmpBody = amp.ToString();
+
             message.PlainTextBody = Regex.Replace(message.HtmlBody, "<.*?>", string.Empty); 
 
             // Add an Attachment with a custom header

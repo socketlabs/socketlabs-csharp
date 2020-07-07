@@ -14,22 +14,22 @@ namespace SocketLabs.InjectionApi.Message
     ///
     /// message.PlainTextBody = "This is the body of my message sent to ##Name##";
     /// message.HtmlBody = "<![CDATA[ <html> ]]>This is the HtmlBody of my message sent to ##Name##<![CDATA[ </html> ]]>";
-    /// message.AmpBody("<!doctype html>" +
-            ///"<html amp4email>" +
-            ///"<head>" +
-            ///"  <meta charset=\"utf-8\">" +
-            ///"  <script async src=\"https://cdn.ampproject.org/v0.js\"></script>" +
-            ///"  <style amp4email-boilerplate>body{visibility:hidden}</style>" +
-            ///"  <style amp-custom>" +
-            ///"    h1 {" +
-            ///"      margin: 1rem;" +
-            ///"    }" +
-            ///"  </style>" +
-            ///"</head>" +
-            ///"<body>" +
-            ///"  <h1>This is the AMP Html Body of my message</h1>" +
-            ///"</body>" +
-            ///"</html>");
+    /// message.AmpBody = "<![CDATA[ <!doctype html> ]]>" +
+    ///                 "<![CDATA[ <html amp4email> ]]>" +
+    ///                 "<![CDATA[ <head> ]]>" +
+    ///                 "  <![CDATA[ <meta charset=\"utf-8\"> ]]>" +
+    ///                 "  <![CDATA[ <script async src=\"https://cdn.ampproject.org/v0.js\"> ]]><![CDATA[ </style> ]]>" +
+    ///                 "  <![CDATA[ <style amp4email-boilerplate> ]]>body{visibility:hidden}<![CDATA[ </style> ]]>" +
+    ///                 "  <![CDATA[ <style amp-custom> ]]>" +
+    ///                 "    h1 {" +
+    ///                 "      margin: 1rem;" +
+    ///                 "    }" +
+    ///                 "  <![CDATA[ </style> ]]>" +
+    ///                 "<![CDATA[ </head> ]]>" +
+    ///                 "<![CDATA[ <body> ]]>" +
+    ///                 "  <![CDATA[ <h1> ]]>This is the AMP Html Body of my message<![CDATA[ </h1> ]]>" +
+    ///                 "<![CDATA[ </body> ]]>" +
+    ///                 "<![CDATA[ </html> ]]>";
     /// message.Subject = "Sending a test message";
     /// message.From.Email = "from@example.com";
     ///
@@ -62,7 +62,7 @@ namespace SocketLabs.InjectionApi.Message
         /// </summary>
         /// <remarks>
         /// (Optional)
-        /// Either PlainTextBody or HtmlBody must be used or use a ApiTemplate with the AmpBody 
+        /// Either PlainTextBody or HtmlBody must be used with the AmpBody or use a ApiTemplate
         /// </remarks> 
         public string PlainTextBody { get; set; }
 
@@ -71,7 +71,7 @@ namespace SocketLabs.InjectionApi.Message
         /// </summary>
         /// <remarks>
         /// (Optional)
-        /// Either PlainTextBody or HtmlBody must be used or use a ApiTemplate with the AmpBody 
+        /// Either PlainTextBody or HtmlBody must be used with the AmpBody or use a ApiTemplate
         /// </remarks> 
         public string HtmlBody { get; set; }
 
@@ -80,7 +80,7 @@ namespace SocketLabs.InjectionApi.Message
         /// </summary>
         /// <remarks>
         /// (Optional)
-        /// Either PlainTextBody or HtmlBody must be used or use a ApiTemplate with the AmpBody  with the AmpBody
+        /// Either PlainTextBody or HtmlBody must be used with the AmpBody or use a ApiTemplate
         /// See https://amp.dev/documentation/ for more information on AMP implementation
         /// </remarks> 
         public string AmpBody { get; set; }

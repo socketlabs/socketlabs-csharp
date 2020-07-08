@@ -5,7 +5,7 @@
         <version>1.1.0</version>
         <title>SocketLabs.EmailDelivery</title>
         <authors>Joe Cooper, David Schrenker, Matt Reibach, Ryan Lydzinski (Contributor)</authors>
-        <license type="url">https://github.com/socketlabs/socketlabs-csharp/blob/master/LICENSE.MD</license>
+        <license type="file">license.txt</license>
         <projectUrl>https://github.com/SocketLabs/socketlabs-csharp</projectUrl>
         <iconUrl>http://static.socketlabs.com/logos/icon-512x512.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>

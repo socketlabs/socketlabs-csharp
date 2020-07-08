@@ -7,7 +7,7 @@
         <authors>Joe Cooper, David Schrenker, Matt Reibach, Ryan Lydzinski (Contributor)</authors>
         <license type="file">license.txt</license>
         <projectUrl>https://github.com/SocketLabs/socketlabs-csharp</projectUrl>
-        <icon type="file">icon.png</iconUrl>
+        <icon type="file">icon.png</icon>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>SocketLabs .Net Client Library.</description>
         <summary>Email Delivery Library for sending transactional and bulk email through the SocketLabs Platform.</summary>

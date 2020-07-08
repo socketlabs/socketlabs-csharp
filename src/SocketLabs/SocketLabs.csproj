@@ -2,36 +2,36 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.3;netstandard2.0;net45</TargetFrameworks>
-	  <PlatformTarget>anycpu</PlatformTarget>
+    <PlatformTarget>anycpu</PlatformTarget>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>SocketLabs</AssemblyName>
     <PackageId>SocketLabs</PackageId>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Version>1.1.0.0</Version>
+    <Version>1.1.0.1</Version>
     <Copyright>(C) 2018-2020 SocketLabs</Copyright>
     <PackageIconUrl>https://www.socketlabs.com/assets/socketlabs-logo1.png</PackageIconUrl>
     <Authors>SocketLabs Development Team</Authors>
     <Product>SocketLabs .Net Client Library</Product>
     <NoWarn></NoWarn>
-	<TeamCityBuild>false</TeamCityBuild>
+    <TeamCityBuild>false</TeamCityBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TeamCitySignAssembly)' != ''">
-    <SignAssembly>true</SignAssembly> 
+    <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
   </PropertyGroup>
-  
+
   <PropertyGroup Condition=" '$(TEAMCITY_BUILD_PROPERTIES_FILE)' != ''">
     <TeamCityBuild>true</TeamCityBuild>
   </PropertyGroup>
-  
+
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.3|AnyCPU'">
     <WarningsAsErrors />
   </PropertyGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">  
-    <Reference Include="System" /> 
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="System" />
   </ItemGroup>
 
   <ItemGroup>
@@ -59,10 +59,10 @@
   </ItemGroup>
 
   <Target Name="TeamCity" AfterTargets="Build" Condition=" '$(TeamCityBuild)'=='true' AND '$(TargetFileName)' != ''">
-	<GetAssemblyIdentity AssemblyFiles="bin\$(ConfigurationName)\$(TargetFramework)\$(TargetFileName)">
+    <GetAssemblyIdentity AssemblyFiles="bin\$(ConfigurationName)\$(TargetFramework)\$(TargetFileName)">
       <Output TaskParameter="Assemblies" ItemName="AssemblyIdentity" />
     </GetAssemblyIdentity>
     <Message Text="##teamcity[buildNumber '%(AssemblyIdentity.Version)']" />
   </Target>
-  
+
 </Project>

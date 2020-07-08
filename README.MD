@@ -205,7 +205,7 @@ For more information about AMP please see [AMP Project](https://amp.dev/document
 
 <a name="version"></a>
 # Version
-* 1.1.0.0 - Adds Amp Html Support
+* 1.1.0.1 - Adds Amp Html Support
 * 1.0.0.0 - Initial Release
 
 <a name="license"></a>

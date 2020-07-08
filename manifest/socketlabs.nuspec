@@ -4,7 +4,7 @@
         <id>SocketLabs.EmailDelivery</id>
         <version>1.1.0.0</version>
         <title>SocketLabs.EmailDelivery</title>
-        <authors>SocketLabs</authors>
+        <authors>Joe Cooper, David Schrenker, Matt Reibach, Ryan Lydzinski (Contributor)</authors>
         <licenseUrl>https://github.com/socketlabs/socketlabs-csharp/blob/master/LICENSE.MD</licenseUrl>
         <projectUrl>https://github.com/SocketLabs/socketlabs-csharp</projectUrl>
         <iconUrl>http://static.socketlabs.com/logos/icon-512x512.png</iconUrl>
@@ -19,7 +19,6 @@
             <dependency id="Newtonsoft.Json" version="9.0.1" />
             <dependency id="System.Net.Http" version="4.3.3" />
         </dependencies>
-        <authors>Joe Cooper, David Schrenker, Matt Reibach, Ryan Lydzinski (Contributor)</authors>
     </metadata>
     <files>
         <file src="..\src\SocketLabs\bin\Release\net45\SocketLabs.dll" target="lib\net45\SocketLabs.dll" />

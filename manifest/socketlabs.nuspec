@@ -5,9 +5,9 @@
         <version>1.1.0</version>
         <title>SocketLabs.EmailDelivery</title>
         <authors>Joe Cooper, David Schrenker, Matt Reibach, Ryan Lydzinski (Contributor)</authors>
-        <license>https://github.com/socketlabs/socketlabs-csharp/blob/master/LICENSE.MD</license>
+        <license type="url">https://github.com/socketlabs/socketlabs-csharp/blob/master/LICENSE.MD</license>
         <projectUrl>https://github.com/SocketLabs/socketlabs-csharp</projectUrl>
-        <icon>http://static.socketlabs.com/logos/icon-512x512.png</icon>
+        <icon type="url">http://static.socketlabs.com/logos/icon-512x512.png</icon>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>SocketLabs .Net Client Library.</description>
         <summary>Email Delivery Library for sending transactional and bulk email through the SocketLabs Platform.</summary>

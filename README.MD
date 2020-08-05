@@ -4,7 +4,7 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/socketlabs/csharp-socketlabs.svg)](https://github.com/socketlabs/csharp-socketlabs/graphs/contributors)
 -->
 
-The SocketLabs Email Delivery C# library allows you to easily send email messages via the [SocketLabs Injection API](https://www.socketlabs.com/api-reference/injection-api/).  The library makes it easy to build and send any type of message supported by the API, from a simple message to a single recipient all the way to a complex bulk message sent to a group of recipients with unique merge data per recipient.
+The SocketLabs Email Delivery C# library allows you to easily send email messages via the [SocketLabs Injection API](https://www.socketlabs.com/docs/inject/).  The library makes it easy to build and send any type of message supported by the API, from a simple message to a single recipient all the way to a complex bulk message sent to a group of recipients with unique merge data per recipient.
 
 # Table of Contents
 * [Prerequisites and Installation](#prerequisites-and-installation)
@@ -107,7 +107,7 @@ var response = client.Send(message);
 A bulk message usually contains a single recipient per message
 and is generally used to send the same content to many recipients,
 optionally customizing the message via the use of MergeData.
-For more information about using Merge data, please see the [Injection API documentation](https://www.socketlabs.com/api-reference/injection-api/#merging).
+For more information about using Merge data, please see the [Injection API documentation](https://www.socketlabs.com/docs/inject/).
 ```C#
 using SocketLabs.InjectionApi;
 using SocketLabs.InjectionApi.Message;

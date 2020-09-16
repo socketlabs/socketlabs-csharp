@@ -47,8 +47,10 @@ namespace SocketLabs.InjectionApi
         /// </summary>
         /// <param name="serverId">Your SocketLabs ServerId number.</param>
         /// <param name="apiKey">Your SocketLabs Injection API key.</param>
-        public SocketLabsClient(int serverId, string apiKey):this(serverId, apiKey, null)
+        public SocketLabsClient(int serverId, string apiKey)
         {
+            _serverId = serverId;
+            _apiKey = apiKey;
             _httpClient = BuildHttpClient(null);
         }
 
@@ -65,11 +67,31 @@ namespace SocketLabs.InjectionApi
             _httpClient = BuildHttpClient(optionalProxy);
         }
 
+        /// <summary>
+        /// Creates a new instance of the <c>SocketLabsClient</c> with a provided HttpClient.
+        /// </summary>
+        /// <param name="serverId">Your SocketLabs ServerId number.</param>
+        /// <param name="apiKey">Your SocketLabs Injection API key.</param>
+        /// <param name="httpClient">The HttpClient instance you would like to use.</param>
+        public SocketLabsClient(int serverId, string apiKey, HttpClient httpClient)
+        {
+            _serverId = serverId;
+            _apiKey = apiKey;
+
+            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            ConfigureHttpClient(httpClient);
+        }
+
         private HttpClient BuildHttpClient(IWebProxy optionalProxy)
         {
             var httpClient = optionalProxy != null ? new HttpClient(new HttpClientHandler() {UseProxy = true, Proxy = optionalProxy}) : new HttpClient();
-            httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
+            ConfigureHttpClient(httpClient);
             return httpClient;
+        }
+
+        private void ConfigureHttpClient(HttpClient httpClient)
+        {
+            httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
         }
 
         /// <summary>

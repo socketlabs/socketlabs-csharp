@@ -2,9 +2,9 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>SocketLabs.EmailDelivery</id>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
         <title>SocketLabs.EmailDelivery</title>
-        <authors>Joe Cooper, David Schrenker, Matt Reibach, Ryan Lydzinski (Contributor)</authors>
+        <authors>Joe Cooper, David Schrenker, Matt Reibach, Ryan Lydzinski (Contributor), Mike Goodfellow (Contributor)</authors>
         <license type="file">license.txt</license>
         <projectUrl>https://github.com/SocketLabs/socketlabs-csharp</projectUrl>
         <iconUrl>http://static.socketlabs.com/logos/icon-512x512.png</iconUrl>

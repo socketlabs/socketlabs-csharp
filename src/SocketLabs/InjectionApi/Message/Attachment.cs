@@ -134,7 +134,7 @@ namespace SocketLabs.InjectionApi.Message
         public string ContentId { get; set; }
 
         /// <summary>
-        /// The BASE64 encoded string containing the contents of an attachment.
+        /// The byte array containing the contents of an attachment.
         /// </summary>
         public byte[] Content { get; set; }
 

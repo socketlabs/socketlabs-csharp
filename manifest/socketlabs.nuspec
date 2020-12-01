@@ -30,6 +30,9 @@
         <file src="..\src\SocketLabs\bin\Release\netstandard2.0\SocketLabs.dll" target="lib\netstandard2.0\SocketLabs.dll" />
         <file src="..\src\SocketLabs\bin\Release\netstandard2.0\SocketLabs.pdb" target="lib\netstandard2.0\SocketLabs.pdb" />
         <file src="..\src\SocketLabs\bin\Release\netstandard2.0\SocketLabs.xml" target="lib\netstandard2.0\SocketLabs.xml" />
+        <file src="..\src\SocketLabs\bin\Release\net5.0\SocketLabs.dll" target="lib\net5.0\SocketLabs.dll" />
+        <file src="..\src\SocketLabs\bin\Release\net5.0\SocketLabs.pdb" target="lib\net5.0\SocketLabs.pdb" />
+        <file src="..\src\SocketLabs\bin\Release\net5.0\SocketLabs.xml" target="lib\net5.0\SocketLabs.xml" />
         <file src="..\manifest\license.txt" target="" />
         <file src="..\manifest\readme.txt" target="" />
     </files>

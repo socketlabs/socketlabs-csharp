@@ -8,7 +8,9 @@ namespace dotNetCoreExample.Examples.Basic
     {
         public SendResponse RunExample()
         {
-            var proxy = new WebProxy("http://localhost.:8888", false);
+           // var proxy = new WebProxy("http://localhost.:8888", false);
+
+            var proxy = new WebProxy("http://localhost:4433", false);
 
             var client = new SocketLabsClient(ExampleConfig.ServerId, ExampleConfig.ApiKey, proxy)
             {
@@ -24,6 +26,8 @@ namespace dotNetCoreExample.Examples.Basic
             message.From.Email = "from@example.com";
             message.ReplyTo.Email = "replyto@example.com";
             message.To.Add("recipient1@example.com");
+
+            client.RequestTimeout = 50;
 
             return client.Send(message);
         }

@@ -29,18 +29,27 @@ namespace SocketLabs.InjectionApi
     /// }
     ///</code>
     /// </example>
-    public class SocketLabsClient : ISocketLabsClient , IDisposable
+    public class SocketLabsClient : ISocketLabsClient, IDisposable
     {
+
+
         private string UserAgent { get; } = $"SocketLabs-csharp/{typeof(SocketLabsClient).GetTypeInfo().Assembly.GetName().Version}";
 
         private readonly int _serverId;
         private readonly string _apiKey;
         private readonly HttpClient _httpClient;
-
+        
         /// <summary>
         /// The SocketLabs Injection API endpoint Url
         /// </summary>
         public string EndpointUrl { get; set; } = "https://inject.socketlabs.com/api/v1/email";
+
+        /// <summary>
+        /// A timeout occurred sending the message
+        /// </summary>
+
+        public int RequestTimeout { get; set; } = 120;
+
 
         /// <summary>
         /// Creates a new instance of the <c>SocketLabsClient</c>.
@@ -54,18 +63,21 @@ namespace SocketLabs.InjectionApi
             _httpClient = BuildHttpClient(null);
         }
 
+
         /// <summary>
         /// Creates a new instance of the <c>SocketLabsClient</c> with a proxy.
         /// </summary>
         /// <param name="serverId">Your SocketLabs ServerId number.</param>
         /// <param name="apiKey">Your SocketLabs Injection API key.</param>
         /// <param name="optionalProxy">The WebProxy you would like to use.</param>
+       /* /// <param name="RequestTimeout">The RequestTimeout you would like to specify.</param> */
         public SocketLabsClient(int serverId, string apiKey, IWebProxy optionalProxy)
         {
             _serverId = serverId;
             _apiKey = apiKey;
             _httpClient = BuildHttpClient(optionalProxy);
-        }
+
+           }
 
         /// <summary>
         /// Creates a new instance of the <c>SocketLabsClient</c> with a provided HttpClient.
@@ -84,7 +96,8 @@ namespace SocketLabs.InjectionApi
 
         private HttpClient BuildHttpClient(IWebProxy optionalProxy)
         {
-            var httpClient = optionalProxy != null ? new HttpClient(new HttpClientHandler() {UseProxy = true, Proxy = optionalProxy}) : new HttpClient();
+            var httpClient =  optionalProxy != null ? new HttpClient(new HttpClientHandler() { UseProxy = true, Proxy = optionalProxy}) : new HttpClient();
+     
             ConfigureHttpClient(httpClient);
             return httpClient;
         }
@@ -217,19 +230,20 @@ namespace SocketLabs.InjectionApi
             var validationResult = validator.ValidateCredentials(_serverId, _apiKey);
             if (validationResult.Result != SendResult.Success) return validationResult;
 
+
             validationResult = validator.ValidateMessage(message);
             if(validationResult.Result != SendResult.Success) return validationResult;
 
             var factory = new InjectionRequestFactory(_serverId, _apiKey);
             var injectionRequest = factory.GenerateRequest(message);
             var json = injectionRequest.GetAsJson();
-
-            var httpResponse = await _httpClient.PostAsync(EndpointUrl, json);
-
+            _httpClient.Timeout = TimeSpan.FromSeconds(RequestTimeout);
+            var httpResponse = await _httpClient.PostAsync(EndpointUrl,json);
             var response = new InjectionResponseParser().Parse(httpResponse);
+
             return response;
         }
-
+             
         /// <summary>
         /// Asynchronously sends a bulk email message and returns the response from the Injection API.
         /// </summary>
@@ -273,9 +287,8 @@ namespace SocketLabs.InjectionApi
 
             var factory = new InjectionRequestFactory(_serverId, _apiKey);
             var injectionRequest = factory.GenerateRequest(message);
-
+            _httpClient.Timeout = TimeSpan.FromSeconds(RequestTimeout);
             var httpResponse = await _httpClient.PostAsync(EndpointUrl, injectionRequest.GetAsJson());
-
             var response = new InjectionResponseParser().Parse(httpResponse);
             return response; 
         }

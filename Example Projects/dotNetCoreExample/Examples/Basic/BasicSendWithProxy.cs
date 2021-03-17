@@ -8,7 +8,7 @@ namespace dotNetCoreExample.Examples.Basic
     {
         public SendResponse RunExample()
         {
-           // var proxy = new WebProxy("http://localhost.:8888", false);
+            // var proxy = new WebProxy("http://localhost.:8888", false);
 
             var proxy = new WebProxy("http://localhost:4433", false);
 
@@ -28,7 +28,6 @@ namespace dotNetCoreExample.Examples.Basic
             message.To.Add("recipient1@example.com");
 
             client.RequestTimeout = 50;
-
             return client.Send(message);
         }
     }

@@ -47,8 +47,8 @@ namespace SocketLabs.InjectionApi
         /// <summary>
         /// A timeout occurred sending the message
         /// </summary>
-
         public int RequestTimeout { get; set; } = 120;
+
 
 
         /// <summary>

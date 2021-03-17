@@ -70,8 +70,7 @@ namespace SocketLabs.InjectionApi
         /// <param name="serverId">Your SocketLabs ServerId number.</param>
         /// <param name="apiKey">Your SocketLabs Injection API key.</param>
         /// <param name="optionalProxy">The WebProxy you would like to use.</param>
-       /* /// <param name="RequestTimeout">The RequestTimeout you would like to specify.</param> */
-        public SocketLabsClient(int serverId, string apiKey, IWebProxy optionalProxy)
+         public SocketLabsClient(int serverId, string apiKey, IWebProxy optionalProxy)
         {
             _serverId = serverId;
             _apiKey = apiKey;

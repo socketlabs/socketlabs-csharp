@@ -53,23 +53,24 @@ namespace dotNetCoreExample
             Console.WriteLine("    6:  Basic Send With Custom-Headers ");
             Console.WriteLine("    7:  Basic Send With Embedded Image ");
             Console.WriteLine("    8:  Basic Send With Proxy ");
-            Console.WriteLine("    9:  Basic Send Complex Example ");
+            Console.WriteLine("    9:  Basic Send With Retry ");
+            Console.WriteLine("    10:  Basic Send Complex Example ");
             Console.WriteLine();
             Console.WriteLine(" Validation Error Handling Examples: ");
-            Console.WriteLine("   10:  Basic Send With Invalid Attachment");
-            Console.WriteLine("   11:  Basic Send With Invalid From ");
-            Console.WriteLine("   12:  Basic Send With Invalid Recipients ");
+            Console.WriteLine("   11:  Basic Send With Invalid Attachment");
+            Console.WriteLine("   12:  Basic Send With Invalid From ");
+            Console.WriteLine("   13:  Basic Send With Invalid Recipients ");
             Console.WriteLine();
             Console.WriteLine(" Bulk Send Examples: ");
-            Console.WriteLine("   13:  Bulk Send ");
-            Console.WriteLine("   14:  Bulk Send With MergeData ");
-            Console.WriteLine("   15:  Bulk Send With Ascii Charset And MergeData ");
-            Console.WriteLine("   16:  Bulk Send From DataSource With MergeData ");
-            Console.WriteLine("   17:  Bulk Send Complex Example (Everything including the Kitchen Sink) ");
+            Console.WriteLine("   14:  Bulk Send ");
+            Console.WriteLine("   15:  Bulk Send With MergeData ");
+            Console.WriteLine("   16:  Bulk Send With Ascii Charset And MergeData ");
+            Console.WriteLine("   17:  Bulk Send From DataSource With MergeData ");
+            Console.WriteLine("   18:  Bulk Send Complex Example (Everything including the Kitchen Sink) ");
             Console.WriteLine();
             Console.WriteLine(" Amp Examples: ");
-            Console.WriteLine("   18:  Basic Send With Amp Body ");
-            Console.WriteLine("   19:  Bulk Send With Amp Body ");
+            Console.WriteLine("   19:  Basic Send With Amp Body ");
+            Console.WriteLine("   20:  Bulk Send With Amp Body ");
             Console.WriteLine();
             Console.WriteLine("-------------------------------------------------------------------------");
         }
@@ -91,18 +92,22 @@ namespace dotNetCoreExample
                 case 5: return "dotNetCoreExample.Examples.Basic.BasicSendWithAttachment";
                 case 6: return "dotNetCoreExample.Examples.Basic.BasicSendWithCustomHeaders";
                 case 7: return "dotNetCoreExample.Examples.Basic.BasicSendWithEmbeddedImage";
-                case 8: return "dotNetCoreExample.Examples.Basic.BasicSendWithProxy";
-                case 9: return "dotNetCoreExample.Examples.Basic.BasicComplexExample";
-                case 10: return "dotNetCoreExample.Examples.Basic.Invalid.BasicSendWithInvalidAttachment";
-                case 11: return "dotNetCoreExample.Examples.Basic.Invalid.BasicSendWithInvalidFrom";
-                case 12: return "dotNetCoreExample.Examples.Basic.Invalid.BasicSendWithInvalidRecipients";
-                case 13: return "dotNetCoreExample.Examples.Bulk.BulkSend";
-                case 14: return "dotNetCoreExample.Examples.Bulk.BulkSendWithMergeData";
-                case 15: return "dotNetCoreExample.Examples.Bulk.BulkSendWithAsciiCharsetMergeData";
-                case 16: return "dotNetCoreExample.Examples.Bulk.BulkSendFromDataSourceWithMerge";
-                case 17: return "dotNetCoreExample.Examples.Bulk.BulkSendComplexExample";
-                case 18: return "dotNetCoreExample.Examples.Basic.BasicSendWithAmpBody";
-                case 19: return "dotNetCoreExample.Examples.Bulk.BulkSendWithAmpBody";
+                case 8: return "dotNetCoreExample.Examples.Basic.BasicSendWithRetry";
+                case 9: return "dotNetCoreExample.Examples.Basic.BasicSendWithProxy";
+                case 10: return "dotNetCoreExample.Examples.Basic.BasicComplexExample";
+
+                case 11: return "dotNetCoreExample.Examples.Basic.Invalid.BasicSendWithInvalidAttachment";
+                case 12: return "dotNetCoreExample.Examples.Basic.Invalid.BasicSendWithInvalidFrom";
+                case 13: return "dotNetCoreExample.Examples.Basic.Invalid.BasicSendWithInvalidRecipients";
+
+                case 14: return "dotNetCoreExample.Examples.Bulk.BulkSend";
+                case 15: return "dotNetCoreExample.Examples.Bulk.BulkSendWithMergeData";
+                case 16: return "dotNetCoreExample.Examples.Bulk.BulkSendWithAsciiCharsetMergeData";
+                case 17: return "dotNetCoreExample.Examples.Bulk.BulkSendFromDataSourceWithMerge";
+                case 18: return "dotNetCoreExample.Examples.Bulk.BulkSendComplexExample";
+
+                case 19: return "dotNetCoreExample.Examples.Basic.BasicSendWithAmpBody";
+                case 20: return "dotNetCoreExample.Examples.Bulk.BulkSendWithAmpBody";
 
                 default:
                     Console.WriteLine("Invalid Input (Out of Range)");

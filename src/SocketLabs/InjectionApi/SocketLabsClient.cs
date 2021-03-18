@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
+using System.Threading;
 using System.Threading.Tasks;
 using SocketLabs.InjectionApi.Core;
 using SocketLabs.InjectionApi.Message;
@@ -193,6 +194,7 @@ namespace SocketLabs.InjectionApi
         /// Asynchronously sends a basic email message and returns the response from the Injection API.
         /// </summary>
         /// <param name="message">A <c>BasicMessage</c> object to be sent.</param> 
+        /// <param name="cancellationToken">A <c>CancellationToken</c> to handle cancellation between async threads.</param> 
         /// <returns>A <c>SendResponse</c> of an SocketLabsClient send request.</returns>
         /// <example>
         /// This sample shows you how to Send a Basic Message
@@ -216,31 +218,39 @@ namespace SocketLabs.InjectionApi
         /// }
         ///</code>
         /// </example>
-        public async Task<SendResponse> SendAsync(IBasicMessage message)
-        {  
-            var validator = new SendValidator();
+        public async Task<SendResponse> SendAsync(IBasicMessage message, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var validator = new SendValidator();
 
-            var validationResult = validator.ValidateCredentials(_serverId, _apiKey);
-            if (validationResult.Result != SendResult.Success) return validationResult;
-            
-            validationResult = validator.ValidateMessage(message);
-            if(validationResult.Result != SendResult.Success) return validationResult;
+                var validationResult = validator.ValidateCredentials(_serverId, _apiKey);
+                if (validationResult.Result != SendResult.Success) return validationResult;
 
-            var factory = new InjectionRequestFactory(_serverId, _apiKey);
-            var injectionRequest = factory.GenerateRequest(message);
-            var json = injectionRequest.GetAsJson();
+                validationResult = validator.ValidateMessage(message);
+                if (validationResult.Result != SendResult.Success) return validationResult;
 
-            _httpClient.Timeout = TimeSpan.FromSeconds(RequestTimeout);
-            var httpResponse = await _httpClient.PostAsync(EndpointUrl,json);
+                var factory = new InjectionRequestFactory(_serverId, _apiKey);
+                var injectionRequest = factory.GenerateRequest(message);
+                var json = injectionRequest.GetAsJson();
 
-            var response = new InjectionResponseParser().Parse(httpResponse);
-            return response;
+                _httpClient.Timeout = TimeSpan.FromSeconds(RequestTimeout);
+                var httpResponse = await _httpClient.PostAsync(EndpointUrl, json, cancellationToken);
+                
+                var response = new InjectionResponseParser().Parse(httpResponse);
+                return response;
+            }
+            catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
+            {
+                throw new TimeoutException();
+            }
         }
-             
+
         /// <summary>
         /// Asynchronously sends a bulk email message and returns the response from the Injection API.
         /// </summary>
         /// <param name="message">A <c>BulkMessage</c> object to be sent.</param>
+        /// <param name="cancellationToken">A <c>CancellationToken</c> to handle cancellation between async threads.</param> 
         /// <returns>A <c>SendResponse</c> of an SocketLabsClient send request.</returns>
         /// <example>
         /// This sample shows you how to Send a Bulk Message
@@ -268,24 +278,31 @@ namespace SocketLabs.InjectionApi
         /// }
         ///</code>
         /// </example>
-        public async Task<SendResponse> SendAsync(IBulkMessage message)
+        public async Task<SendResponse> SendAsync(IBulkMessage message, CancellationToken cancellationToken)
         {
-            var validator = new SendValidator();
+            try
+            {
+                var validator = new SendValidator();
 
-            var validationResult = validator.ValidateCredentials(_serverId, _apiKey);
-            if (validationResult.Result != SendResult.Success) return validationResult;
+                var validationResult = validator.ValidateCredentials(_serverId, _apiKey);
+                if (validationResult.Result != SendResult.Success) return validationResult;
 
-            validationResult = validator.ValidateMessage(message);
-            if (validationResult.Result != SendResult.Success) return validationResult;
+                validationResult = validator.ValidateMessage(message);
+                if (validationResult.Result != SendResult.Success) return validationResult;
 
-            var factory = new InjectionRequestFactory(_serverId, _apiKey);
-            var injectionRequest = factory.GenerateRequest(message);
+                var factory = new InjectionRequestFactory(_serverId, _apiKey);
+                var injectionRequest = factory.GenerateRequest(message);
 
-            _httpClient.Timeout = TimeSpan.FromSeconds(RequestTimeout);
-            var httpResponse = await _httpClient.PostAsync(EndpointUrl, injectionRequest.GetAsJson());
+                _httpClient.Timeout = TimeSpan.FromSeconds(RequestTimeout);
+                var httpResponse = await _httpClient.PostAsync(EndpointUrl, injectionRequest.GetAsJson(), cancellationToken);
 
-            var response = new InjectionResponseParser().Parse(httpResponse);
-            return response; 
+                var response = new InjectionResponseParser().Parse(httpResponse);
+                return response;
+            }
+            catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
+            {
+                throw new TimeoutException();
+            }
         }
 
         /// <summary>
@@ -319,8 +336,15 @@ namespace SocketLabs.InjectionApi
         {
             try
             {
+                var source = new CancellationTokenSource();
                 //Read this if you have questions: https://blogs.msdn.microsoft.com/pfxteam/2012/04/13/should-i-expose-synchronous-wrappers-for-asynchronous-methods/
-                return Task.Run(() => SendAsync(message)).Result;
+                var sendTask = Task.Run(() => SendAsync(message, source.Token));
+                
+                while (!sendTask.IsCompleted) { }
+                if (sendTask.Status == TaskStatus.Faulted) throw sendTask.Exception;
+                
+                return sendTask.Result;
+                
             }
             //for synchronous usage, try to simplify exceptions being thrown
             catch (AggregateException e)
@@ -366,9 +390,15 @@ namespace SocketLabs.InjectionApi
         {
             try
             {
-                //Read this if you have questions: https://blogs.msdn.microsoft.com/pfxteam/2012/04/13/should-i-expose-synchronous-wrappers-for-asynchronous-methods/
-                return Task.Run(() => SendAsync(message)).Result;
+                var source = new CancellationTokenSource();
 
+                //Read this if you have questions: https://blogs.msdn.microsoft.com/pfxteam/2012/04/13/should-i-expose-synchronous-wrappers-for-asynchronous-methods/
+                var sendTask = Task.Run(() => SendAsync(message, source.Token));
+
+                while (!sendTask.IsCompleted) { }
+                if (sendTask.Status == TaskStatus.Faulted) throw sendTask.Exception;
+
+                return sendTask.Result;
             }
             //for synchronous usage, try to simplify exceptions being thrown
             catch (AggregateException e)
@@ -386,5 +416,7 @@ namespace SocketLabs.InjectionApi
         {
             _httpClient?.Dispose();
         }
+
+
     }
 }

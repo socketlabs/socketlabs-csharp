@@ -25,7 +25,6 @@ namespace dotNetCoreExample.Examples.Basic
             message.ReplyTo.Email = "replyto@example.com";
             message.To.Add("recipient1@example.com");
 
-            client.RequestTimeout = 50;
             return client.Send(message);
         }
     }

@@ -205,6 +205,7 @@ For more information about AMP please see [AMP Project](https://amp.dev/document
 
 <a name="version"></a>
 # Version
+* 1.2.1 - Adding request timeout value on the client for Http requests
 * 1.2.0 - Can now pass in instance of HTTP client, adds .NET 5.0 support
 * 1.1.0 - Adds Amp Html Support
 * 1.0.0 - Initial Release

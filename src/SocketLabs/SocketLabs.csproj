@@ -15,8 +15,8 @@
     <Product>SocketLabs .Net Client Library</Product>
     <NoWarn></NoWarn>
     <TeamCityBuild>false</TeamCityBuild>
-    <AssemblyVersion>1.2.0</AssemblyVersion>
-    <FileVersion>1.2.0</FileVersion>
+    <AssemblyVersion>1.2.1</AssemblyVersion>
+    <FileVersion>1.2.1</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TeamCitySignAssembly)' != ''">

@@ -26,7 +26,7 @@ namespace dotNetCoreExample
                 quit = selection.ToLower().Trim() == "quit";
                 if (quit)
                     continue;
-
+                  
                 var exampleClassName = GetExampleName(selection);
                 if(exampleClassName == null)
                     continue;

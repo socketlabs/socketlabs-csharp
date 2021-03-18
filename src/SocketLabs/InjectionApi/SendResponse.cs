@@ -36,9 +36,7 @@
 
                     case SendResult.Timeout:
                         return "A timeout occurred sending the message";
-
-                  
-
+                        
                     case SendResult.Success:
                         return "Successful send of message";
 

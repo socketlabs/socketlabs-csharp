@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
+// ReSharper disable MethodSupportsCancellation
 namespace SocketLabs.InjectionApi.Core
 {
     internal class RetryHandler 
@@ -39,78 +40,50 @@ namespace SocketLabs.InjectionApi.Core
         public async Task<HttpResponseMessage> SendAsync(StringContent content, CancellationToken cancellationToken)
         {
             if (RetrySettings.MaximumNumberOfRetries == 0)
-            {
-                return await HttpClient.PostAsync(EndpointUrl, content, cancellationToken)
+                return await HttpClient
+                    .PostAsync(EndpointUrl, content, cancellationToken)
                     .ConfigureAwait(false);
-            }
+            
 
             HttpResponseMessage response = null;
 
-            var numberOfAttempts = 0;
-            var sent = false;
+            var attempts = 0;
+            var waiting = true;
 
-            while (!sent)
+            do
             {
-                var waitFor = this.GetNextWaitInterval(numberOfAttempts);
+                var waitInterval = RetrySettings.GetNextWaitInterval(attempts);
 
                 try
                 {
-                    response = await HttpClient.PostAsync(EndpointUrl, content, cancellationToken).ConfigureAwait(false);
-                    
-                    if (ErrorStatusCodes.Contains(response.StatusCode))
-                        throw new HttpRequestException($"HttpStatusCode: '{response.StatusCode}'. Response contains server error.");
-                    
+                    response = await HttpClient.PostAsync(EndpointUrl, content, cancellationToken)
+                        .ConfigureAwait(false);
 
-                    sent = true;
+                    if (ErrorStatusCodes.Contains(response.StatusCode))
+                        throw new HttpRequestException(
+                            $"HttpStatusCode: '{response.StatusCode}'. Response contains server error.");
+
+                    waiting = false;
                 }
                 catch (TaskCanceledException)
                 {
-                    numberOfAttempts++;
-
-                    if (numberOfAttempts > RetrySettings.MaximumNumberOfRetries)
-                    {
-                        throw new TimeoutException();
-                    }
-
-                    // ReSharper disable once MethodSupportsCancellation, cancel will be indicated on the token
-                    await Task.Delay(waitFor).ConfigureAwait(false);
+                    attempts++;
+                    if (attempts > RetrySettings.MaximumNumberOfRetries) throw new TimeoutException();
+                    await Task.Delay(waitInterval).ConfigureAwait(false);
                 }
                 catch (HttpRequestException)
                 {
-                    numberOfAttempts++;
-
-                    if (numberOfAttempts > RetrySettings.MaximumNumberOfRetries)
-                    {
-                        throw;
-                    }
-
-                    await Task.Delay(waitFor).ConfigureAwait(false);
+                    attempts++;
+                    if (attempts > RetrySettings.MaximumNumberOfRetries) throw;
+                    await Task.Delay(waitInterval).ConfigureAwait(false);
                 }
-            }
+
+            } while (waiting);
 
             return response;
         }
 
 
-
-        internal virtual int GetRetryDelta(int numberOfAttempts)
-        {
-            var random = new Random();
-
-            var min = (int) (TimeSpan.FromSeconds(1).TotalMilliseconds * 0.8);
-            var max = (int) (TimeSpan.FromSeconds(1).TotalMilliseconds * 1.2);
-
-            return (int) ((Math.Pow(2.0, numberOfAttempts) - 1.0) * random.Next(min, max));
-        }
-
-        private TimeSpan GetNextWaitInterval(int numberOfAttempts)
-        {
-            var interval = (int)Math.Min(
-                RetrySettings.MinimumRetryTimeBetween.TotalMilliseconds + GetRetryDelta(numberOfAttempts),
-                RetrySettings.MaximumRetryTimeBetween.TotalMilliseconds);
-
-            return TimeSpan.FromMilliseconds(interval);
-        }
 
     }
 }

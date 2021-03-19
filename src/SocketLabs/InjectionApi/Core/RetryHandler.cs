@@ -44,26 +44,21 @@ namespace SocketLabs.InjectionApi.Core
                     .PostAsync(EndpointUrl, content, cancellationToken)
                     .ConfigureAwait(false);
             
-
-            HttpResponseMessage response = null;
-
             var attempts = 0;
-            var waiting = true;
-
             do
             {
                 var waitInterval = RetrySettings.GetNextWaitInterval(attempts);
 
                 try
                 {
-                    response = await HttpClient.PostAsync(EndpointUrl, content, cancellationToken)
+                    var response = await HttpClient.PostAsync(EndpointUrl, content, cancellationToken)
                         .ConfigureAwait(false);
 
                     if (ErrorStatusCodes.Contains(response.StatusCode))
                         throw new HttpRequestException(
                             $"HttpStatusCode: '{response.StatusCode}'. Response contains server error.");
 
-                    waiting = false;
+                    return response;
                 }
                 catch (TaskCanceledException)
                 {
@@ -78,9 +73,8 @@ namespace SocketLabs.InjectionApi.Core
                     await Task.Delay(waitInterval).ConfigureAwait(false);
                 }
 
-            } while (waiting);
+            } while (true);
 
-            return response;
         }
 
 

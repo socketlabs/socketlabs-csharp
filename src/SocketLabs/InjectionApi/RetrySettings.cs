@@ -5,7 +5,7 @@ namespace SocketLabs.InjectionApi
     /// <summary>
     /// 
     /// </summary>
-    public class RetrySettings
+    internal class RetrySettings
     {
 
         private const int _defaultNumberOfRetries = 0;

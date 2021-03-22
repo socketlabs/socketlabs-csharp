@@ -52,7 +52,7 @@ namespace SocketLabs.InjectionApi
         /// <summary>
         /// RetrySettings object to define retry setting for the Injection API request.
         /// </summary>
-        public RetrySettings RetrySettings { get; set; } = new RetrySettings();
+        public int NumberOfRetries { get; set; } = 0;
 
         /// <summary>
         /// Creates a new instance of the <c>SocketLabsClient</c>.
@@ -240,7 +240,7 @@ namespace SocketLabs.InjectionApi
 
             _httpClient.Timeout = TimeSpan.FromSeconds(RequestTimeout);
 
-            var retryHandler = new RetryHandler(_httpClient, EndpointUrl, RetrySettings);
+            var retryHandler = new RetryHandler(_httpClient, EndpointUrl, new RetrySettings(NumberOfRetries));
             var httpResponse = await retryHandler.SendAsync(json, cancellationToken);
 
             var response = new InjectionResponseParser().Parse(httpResponse);
@@ -295,7 +295,7 @@ namespace SocketLabs.InjectionApi
 
             _httpClient.Timeout = TimeSpan.FromSeconds(RequestTimeout);
 
-            var retryHandler = new RetryHandler(_httpClient, EndpointUrl, RetrySettings);
+            var retryHandler = new RetryHandler(_httpClient, EndpointUrl, new RetrySettings(NumberOfRetries));
             var httpResponse = await retryHandler.SendAsync(json, cancellationToken);
 
             var response = new InjectionResponseParser().Parse(httpResponse);

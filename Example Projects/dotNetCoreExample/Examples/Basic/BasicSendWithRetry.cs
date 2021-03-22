@@ -15,7 +15,7 @@ namespace dotNetCoreExample.Examples.Basic
             {
                 EndpointUrl = ExampleConfig.TargetApi,
                 RequestTimeout = 120,
-                RetrySettings = new RetrySettings(3, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5))
+                NumberOfRetries = 3
             };
 
             var message = new BasicMessage();

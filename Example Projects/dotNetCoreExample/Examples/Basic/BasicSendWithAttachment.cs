@@ -22,7 +22,7 @@ namespace dotNetCoreExample.Examples.Basic
             message.ReplyTo.Email = "replyto@example.com";
             message.To.Add("recipient1@example.com");
 
-            var attachment = message.Attachments.AddAsync("bus.png", MimeType.PNG, @".\examples\img\bus.png").Result;
+            var attachment = message.Attachments.Add("bus.png", MimeType.PNG, @".\examples\img\bus.png");
 
             attachment.CustomHeaders.Add(new CustomHeader("Color", "Orange"));
             attachment.CustomHeaders.Add(new CustomHeader("Place", "Beach"));

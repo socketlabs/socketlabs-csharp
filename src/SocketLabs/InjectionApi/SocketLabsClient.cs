@@ -37,7 +37,8 @@ namespace SocketLabs.InjectionApi
         private readonly int _serverId;
         private readonly string _apiKey;
         private readonly HttpClient _httpClient;
-        
+
+
         /// <summary>
         /// The SocketLabs Injection API endpoint Url
         /// </summary>
@@ -47,7 +48,12 @@ namespace SocketLabs.InjectionApi
         /// A timeout period for the Injection API request (in Seconds). Default: 120s
         /// </summary>
         public int RequestTimeout { get; set; } = 120;
-        
+
+        /// <summary>
+        /// RetrySettings object to define retry setting for the Injection API request.
+        /// </summary>
+        public int NumberOfRetries { get; set; } = 0;
+
         /// <summary>
         /// Creates a new instance of the <c>SocketLabsClient</c>.
         /// </summary>
@@ -220,30 +226,25 @@ namespace SocketLabs.InjectionApi
         /// </example>
         public async Task<SendResponse> SendAsync(IBasicMessage message, CancellationToken cancellationToken)
         {
-            try
-            {
-                var validator = new SendValidator();
+            var validator = new SendValidator();
 
-                var validationResult = validator.ValidateCredentials(_serverId, _apiKey);
-                if (validationResult.Result != SendResult.Success) return validationResult;
+            var validationResult = validator.ValidateCredentials(_serverId, _apiKey);
+            if (validationResult.Result != SendResult.Success) return validationResult;
 
-                validationResult = validator.ValidateMessage(message);
-                if (validationResult.Result != SendResult.Success) return validationResult;
+            validationResult = validator.ValidateMessage(message);
+            if (validationResult.Result != SendResult.Success) return validationResult;
 
-                var factory = new InjectionRequestFactory(_serverId, _apiKey);
-                var injectionRequest = factory.GenerateRequest(message);
-                var json = injectionRequest.GetAsJson();
+            var factory = new InjectionRequestFactory(_serverId, _apiKey);
+            var injectionRequest = factory.GenerateRequest(message);
+            var json = injectionRequest.GetAsJson();
 
-                _httpClient.Timeout = TimeSpan.FromSeconds(RequestTimeout);
-                var httpResponse = await _httpClient.PostAsync(EndpointUrl, json, cancellationToken);
-                
-                var response = new InjectionResponseParser().Parse(httpResponse);
-                return response;
-            }
-            catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
-            {
-                throw new TimeoutException();
-            }
+            _httpClient.Timeout = TimeSpan.FromSeconds(RequestTimeout);
+
+            var retryHandler = new RetryHandler(_httpClient, EndpointUrl, new RetrySettings(NumberOfRetries));
+            var httpResponse = await retryHandler.SendAsync(json, cancellationToken);
+
+            var response = new InjectionResponseParser().Parse(httpResponse);
+            return response;
         }
 
         /// <summary>
@@ -280,29 +281,25 @@ namespace SocketLabs.InjectionApi
         /// </example>
         public async Task<SendResponse> SendAsync(IBulkMessage message, CancellationToken cancellationToken)
         {
-            try
-            {
-                var validator = new SendValidator();
+            var validator = new SendValidator();
 
-                var validationResult = validator.ValidateCredentials(_serverId, _apiKey);
-                if (validationResult.Result != SendResult.Success) return validationResult;
+            var validationResult = validator.ValidateCredentials(_serverId, _apiKey);
+            if (validationResult.Result != SendResult.Success) return validationResult;
 
-                validationResult = validator.ValidateMessage(message);
-                if (validationResult.Result != SendResult.Success) return validationResult;
+            validationResult = validator.ValidateMessage(message);
+            if (validationResult.Result != SendResult.Success) return validationResult;
 
-                var factory = new InjectionRequestFactory(_serverId, _apiKey);
-                var injectionRequest = factory.GenerateRequest(message);
+            var factory = new InjectionRequestFactory(_serverId, _apiKey);
+            var injectionRequest = factory.GenerateRequest(message);
+            var json = injectionRequest.GetAsJson();
 
-                _httpClient.Timeout = TimeSpan.FromSeconds(RequestTimeout);
-                var httpResponse = await _httpClient.PostAsync(EndpointUrl, injectionRequest.GetAsJson(), cancellationToken);
+            _httpClient.Timeout = TimeSpan.FromSeconds(RequestTimeout);
 
-                var response = new InjectionResponseParser().Parse(httpResponse);
-                return response;
-            }
-            catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
-            {
-                throw new TimeoutException();
-            }
+            var retryHandler = new RetryHandler(_httpClient, EndpointUrl, new RetrySettings(NumberOfRetries));
+            var httpResponse = await retryHandler.SendAsync(json, cancellationToken);
+
+            var response = new InjectionResponseParser().Parse(httpResponse);
+            return response;
         }
 
         /// <summary>

@@ -173,6 +173,9 @@ This example demonstrates how to add custom headers to your email message.
 ### [Basic send with a web proxy](https://github.com/socketlabs/socketlabs-csharp/blob/master/Example%20Projects/dotNetCoreExample/Examples/Basic/BasicSendWithProxy.cs)
 This example demonstrates how to use a proxy with your HTTP client.
 
+### [Basic send with retry enabled](https://github.com/socketlabs/socketlabs-csharp/blob/master/Example%20Projects/dotNetCoreExample/Examples/Basic/BasicSendWithRetry.cs)
+This example demonstrates how to use the retry logic with your HTTP client.
+
 ### [Basic send complex example](https://github.com/socketlabs/socketlabs-csharp/blob/master/Example%20Projects/dotNetCoreExample/Examples/Basic/BasicComplexExample.cs)
 This example demonstrates many features of the Basic Send, including adding multiple recipients, adding message and mailing id's, and adding an embedded image.
 
@@ -205,6 +208,7 @@ For more information about AMP please see [AMP Project](https://amp.dev/document
 
 <a name="version"></a>
 # Version
+* 1.2.2 - Adding optional retry logic for Http requests. If configured, the request will retry when certain 500 errors occur (500, 502, 503, 504)
 * 1.2.1 - Adding request timeout value on the client for Http requests
 * 1.2.0 - Can now pass in instance of HTTP client, adds .NET 5.0 support
 * 1.1.0 - Adds Amp Html Support

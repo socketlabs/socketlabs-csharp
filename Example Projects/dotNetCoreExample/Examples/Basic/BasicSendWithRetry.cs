@@ -14,7 +14,6 @@ namespace dotNetCoreExample.Examples.Basic
             var client = new SocketLabsClient(ExampleConfig.ServerId, ExampleConfig.ApiKey, proxy)
             {
                 EndpointUrl = ExampleConfig.TargetApi,
-                RequestTimeout = 120,
                 NumberOfRetries = 3
             };
 

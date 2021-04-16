@@ -53,7 +53,7 @@ namespace SocketLabs.InjectionApi.Core
                 {
                     var response = await HttpClient.PostAsync(EndpointUrl, content, cancellationToken)
                         .ConfigureAwait(false);
-
+                    
                     if (ErrorStatusCodes.Contains(response.StatusCode))
                         throw new HttpRequestException(
                             $"HttpStatusCode: '{response.StatusCode}'. Response contains server error.");

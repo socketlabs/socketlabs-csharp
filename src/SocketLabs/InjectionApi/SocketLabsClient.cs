@@ -43,12 +43,7 @@ namespace SocketLabs.InjectionApi
         /// The SocketLabs Injection API endpoint Url
         /// </summary>
         public string EndpointUrl { get; set; } = "https://inject.socketlabs.com/api/v1/email";
-
-        /// <summary>
-        /// A timeout period for the Injection API request (in Seconds). Default: 120s
-        /// </summary>
-        public int RequestTimeout { get; set; } = 120;
-
+        
         /// <summary>
         /// RetrySettings object to define retry setting for the Injection API request.
         /// </summary>
@@ -237,9 +232,7 @@ namespace SocketLabs.InjectionApi
             var factory = new InjectionRequestFactory(_serverId, _apiKey);
             var injectionRequest = factory.GenerateRequest(message);
             var json = injectionRequest.GetAsJson();
-
-            _httpClient.Timeout = TimeSpan.FromSeconds(RequestTimeout);
-
+            
             var retryHandler = new RetryHandler(_httpClient, EndpointUrl, new RetrySettings(NumberOfRetries));
             var httpResponse = await retryHandler.SendAsync(json, cancellationToken);
 
@@ -292,9 +285,7 @@ namespace SocketLabs.InjectionApi
             var factory = new InjectionRequestFactory(_serverId, _apiKey);
             var injectionRequest = factory.GenerateRequest(message);
             var json = injectionRequest.GetAsJson();
-
-            _httpClient.Timeout = TimeSpan.FromSeconds(RequestTimeout);
-
+            
             var retryHandler = new RetryHandler(_httpClient, EndpointUrl, new RetrySettings(NumberOfRetries));
             var httpResponse = await retryHandler.SendAsync(json, cancellationToken);
 

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>SocketLabs.EmailDelivery</id>
-        <version>1.2.2</version>
+        <version>1.2.3</version>
         <title>SocketLabs.EmailDelivery</title>
         <authors>Joe Cooper, David Schrenker, Matt Reibach, Ryan Lydzinski (Contributor), Mike Goodfellow (Contributor), Saranya Kavuri (Contributor)</authors>
         <license type="file">license.txt</license>

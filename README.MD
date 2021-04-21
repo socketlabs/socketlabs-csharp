@@ -208,6 +208,7 @@ For more information about AMP please see [AMP Project](https://amp.dev/document
 
 <a name="version"></a>
 # Version
+* 1.2.3 - Revert request timeout override. To set the timeout please pass your HttpClient instance via the constructor.
 * 1.2.2 - Adding optional retry logic for Http requests. If configured, the request will retry when certain 500 errors occur (500, 502, 503, 504)
 * 1.2.1 - Adding request timeout value on the client for Http requests
 * 1.2.0 - Can now pass in instance of HTTP client, adds .NET 5.0 support

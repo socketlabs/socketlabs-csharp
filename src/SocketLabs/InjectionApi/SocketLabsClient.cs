@@ -37,7 +37,7 @@ namespace SocketLabs.InjectionApi
         private readonly int _serverId;
         private readonly string _apiKey;
         private readonly HttpClient _httpClient;
-
+        private readonly bool _useProvidedHttpClient = false;
 
         /// <summary>
         /// The SocketLabs Injection API endpoint Url
@@ -48,7 +48,7 @@ namespace SocketLabs.InjectionApi
         /// A timeout period for the Injection API request (in Seconds). Default: 120s
         /// </summary>
         public int RequestTimeout { get; set; } = 120;
-
+        
         /// <summary>
         /// RetrySettings object to define retry setting for the Injection API request.
         /// </summary>
@@ -92,6 +92,7 @@ namespace SocketLabs.InjectionApi
             _apiKey = apiKey;
 
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            _useProvidedHttpClient = true;
             ConfigureHttpClient(httpClient);
         }
 
@@ -238,7 +239,7 @@ namespace SocketLabs.InjectionApi
             var injectionRequest = factory.GenerateRequest(message);
             var json = injectionRequest.GetAsJson();
 
-            _httpClient.Timeout = TimeSpan.FromSeconds(RequestTimeout);
+            if (!_useProvidedHttpClient) _httpClient.Timeout = TimeSpan.FromSeconds(RequestTimeout);
 
             var retryHandler = new RetryHandler(_httpClient, EndpointUrl, new RetrySettings(NumberOfRetries));
             var httpResponse = await retryHandler.SendAsync(json, cancellationToken);

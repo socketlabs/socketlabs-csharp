@@ -31,11 +31,18 @@ For most uses we recommend installing the SocketLabs.EmailDelivery package via N
 PM> Install-Package SocketLabs.EmailDelivery
 ```
 
+Adding a Package Reference to your project:
+
+```
+<PackageReference Include="SocketLabs.EmailDelivery" Version="1.2.3" />
+```
+
 .NET CLI users can also use the following command:
 
 ```
 > dotnet add package SocketLabs.EmailDelivery
 ```
+
 
 Alternately, you can simply [clone this repository](https://github.com/socketlabs/socketlabs-csharp.git) directly to include the source code in your project.
 

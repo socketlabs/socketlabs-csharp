@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.3;netstandard2.0;net45;net5.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net48;net5.0;net6.0</TargetFrameworks>
     <PlatformTarget>anycpu</PlatformTarget>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>SocketLabs</AssemblyName>
@@ -9,7 +9,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Version>1.2.3</Version>
-    <Copyright>(C) 2018-2021 SocketLabs</Copyright>
+    <Copyright>(C) 2018-2022 SocketLabs</Copyright>
     <PackageIconUrl>https://www.socketlabs.com/assets/socketlabs-logo1.png</PackageIconUrl>
     <Authors>SocketLabs Development Team</Authors>
     <Product>SocketLabs .Net Client Library</Product>
@@ -56,8 +56,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
-    <PackageReference Include="System.Net.Http" Version="4.3.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 
   <Target Name="TeamCity" AfterTargets="Build" Condition=" '$(TeamCityBuild)'=='true' AND '$(TargetFileName)' != ''">

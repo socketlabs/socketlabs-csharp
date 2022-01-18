@@ -259,6 +259,106 @@ namespace SocketLabs.Test.Validation
             Assert.IsTrue(actual);
         }
 
+        [TestMethod]
+        public void HasMessageBody_ReturnsTrue_WhenHtmlBodyAndApiTemplateIsEmptyAndPlainTextBodyAndAmpBodyIsNotEmpty()
+        {
+            //Arrange
+            var message = new BasicMessage
+            {
+                HtmlBody = string.Empty,
+                PlainTextBody = RandomHelper.RandomString(),
+                ApiTemplate = null,
+                AmpBody = RandomHelper.RandomString()
+            };
+            var validator = new SendValidator();
+
+            //Act
+            var actual = validator.HasMessageBody(message);
+
+            //Assert
+            Assert.IsTrue(actual);
+        }
+
+        [TestMethod]
+        public void HasMessageBody_ReturnsTrue_WhenPlainTextBodyAndApiTemplateAndAmpBodyIsNotEmptyAndHtmlBodyIsEmpty()
+        {
+            //Arrange
+            var message = new BasicMessage
+            {
+                HtmlBody = RandomHelper.RandomString(),
+                PlainTextBody = string.Empty,
+                ApiTemplate = null,
+                AmpBody = RandomHelper.RandomString()
+            };
+            var validator = new SendValidator();
+
+            //Act
+            var actual = validator.HasMessageBody(message);
+
+            //Assert
+            Assert.IsTrue(actual);
+        }
+
+        [TestMethod]
+        public void HasMessageBody_ReturnsTrue_WhenApiTemplateAndAmpBodyIsNotEmptyAndPlainTextBodyAndHtmlBodyIsEmpty()
+        {
+            //Arrange
+            var message = new BasicMessage
+            {
+                HtmlBody = string.Empty,
+                PlainTextBody = string.Empty,
+                ApiTemplate = RandomHelper.RandomInt(),
+                AmpBody = RandomHelper.RandomString()
+            };
+            var validator = new SendValidator();
+
+            //Act
+            var actual = validator.HasMessageBody(message);
+
+            //Assert
+            Assert.IsTrue(actual);
+        }
+
+        [TestMethod]
+        public void HasMessageBody_ReturnsFalse_WhenPlainTextBodyAndHtmlBodyAndApiTemplateIsEmptyAndAmpBodyIsNotEmpty()
+        {
+            //Arrange
+            var message = new BasicMessage
+            {
+                HtmlBody = string.Empty,
+                PlainTextBody = string.Empty,
+                ApiTemplate = null,
+                AmpBody = RandomHelper.RandomString()
+            };
+            var validator = new SendValidator();
+
+            //Act
+            var actual = validator.HasMessageBody(message);
+
+            //Assert
+            Assert.IsFalse(actual);
+        }
+        
+        [TestMethod]
+        public void HasMessageBody_ReturnsFalse_WhenPlainTextBodyAndHtmlBodyAndApiTemplateAndAmpBodyIsEmpty()
+        {
+            //Arrange
+            var message = new BasicMessage
+            {
+                HtmlBody = string.Empty,
+                PlainTextBody = string.Empty,
+                ApiTemplate = null,
+                AmpBody = string.Empty
+            };
+            var validator = new SendValidator();
+
+            //Act
+            var actual = validator.HasMessageBody(message);
+
+            //Assert
+            Assert.IsFalse(actual);
+        }
+
         #endregion
 
 

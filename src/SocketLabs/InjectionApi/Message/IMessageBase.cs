@@ -20,7 +20,7 @@ namespace SocketLabs.InjectionApi.Message
         /// </summary>
         /// <remarks>
         /// (Optional)
-        /// Either PlainTextBody or HtmlBody must be used or use a ApiTemplate
+        /// Either PlainTextBody or HtmlBody must be used with the AmpBody or use a ApiTemplate
         /// </remarks> 
         string PlainTextBody { get; set; }
 
@@ -29,16 +29,26 @@ namespace SocketLabs.InjectionApi.Message
         /// </summary>
         /// <remarks>
         /// (Optional)
-        /// Either PlainTextBody or HtmlBody must be used or use a ApiTemplate
+        /// Either PlainTextBody or HtmlBody must be used with the AmpBody or use a ApiTemplate
         /// </remarks> 
         string HtmlBody { get; set; }
+
+        /// <summary>
+        /// Gets or sets the AMP HTML portion of the message body.
+        /// </summary>
+        /// <remarks>
+        /// (Optional)
+        /// Either PlainTextBody or HtmlBody must be used with the AmpBody or use a ApiTemplate
+        /// See https://amp.dev/documentation/ for more information on AMP implementation
+        /// </remarks> 
+        string AmpBody { get; set; }
 
         /// <summary>
         /// Gets or sets the Api Template for the message.
         /// </summary>
         /// <remarks>
         /// (Optional)
-        /// Either PlainTextBody or HtmlBody must be used or use a ApiTemplate
+        /// Either PlainTextBody or HtmlBody must be used or use a ApiTemplate with the AmpBody
         /// </remarks> 
         int? ApiTemplate { get; set; }
 

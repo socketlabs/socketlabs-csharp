@@ -86,6 +86,7 @@ namespace SocketLabs.InjectionApi.Core
                 Subject = message.Subject,
                 TextBody = message.PlainTextBody,
                 HtmlBody = message.HtmlBody,
+                AmpBody = message.AmpBody,
                 MailingId = message.MailingId,
                 MessageId = message.MessageId,
                 CharSet = message.CharSet,
@@ -115,9 +116,9 @@ namespace SocketLabs.InjectionApi.Core
 
             var results = new List<AttachmentJson>();
 
-            var attachmentJson = new AttachmentJson();
             foreach (var attachment in attachments)
             {
+                var attachmentJson = new AttachmentJson();
                 attachmentJson.Name = attachment.Name;
                 attachmentJson.ContentType = attachment.MimeType;
                 attachmentJson.ContentId = attachment.ContentId;

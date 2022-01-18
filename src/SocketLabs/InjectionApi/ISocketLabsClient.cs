@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using SocketLabs.InjectionApi.Message;
 
 namespace SocketLabs.InjectionApi
@@ -14,15 +15,17 @@ namespace SocketLabs.InjectionApi
         /// Asynchronously sends a basic email message and returns the response from the Injection API.
         /// </summary>
         /// <param name="message">A <c>BasicMessage</c> object to be sent.</param> 
+        /// <param name="cancellationToken">A <c>CancellationToken</c> to handle cancellation between async threads.</param> 
         /// <returns>A <c>SendResponse</c> of an SocketLabsClient send request.</returns>
-        Task<SendResponse> SendAsync(IBasicMessage message);
+        Task<SendResponse> SendAsync(IBasicMessage message, CancellationToken cancellationToken);
 
         /// <summary>
         /// Asynchronously sends a bulk email message and returns the response from the Injection API.
         /// </summary>
         /// <param name="message">A <c>BulkMessage</c> object to be sent.</param>
+        /// <param name="cancellationToken">A <c>CancellationToken</c> to handle cancellation between async threads.</param> 
         /// <returns>A <c>SendResponse</c> of an SocketLabsClient send request.</returns>
-        Task<SendResponse> SendAsync(IBulkMessage message);
+        Task<SendResponse> SendAsync(IBulkMessage message, CancellationToken cancellationToken);
 
         /// <summary>
         /// Synchronously sends a basic email message and returns the response from the Injection API.

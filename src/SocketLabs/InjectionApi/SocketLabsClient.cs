@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
+using System.Threading;
 using System.Threading.Tasks;
 using SocketLabs.InjectionApi.Core;
 using SocketLabs.InjectionApi.Message;
@@ -29,7 +30,7 @@ namespace SocketLabs.InjectionApi
     /// }
     ///</code>
     /// </example>
-    public class SocketLabsClient : ISocketLabsClient , IDisposable
+    public class SocketLabsClient : ISocketLabsClient, IDisposable
     {
         private string UserAgent { get; } = $"SocketLabs-csharp/{typeof(SocketLabsClient).GetTypeInfo().Assembly.GetName().Version}";
 
@@ -37,39 +38,68 @@ namespace SocketLabs.InjectionApi
         private readonly string _apiKey;
         private readonly HttpClient _httpClient;
 
+
         /// <summary>
         /// The SocketLabs Injection API endpoint Url
         /// </summary>
         public string EndpointUrl { get; set; } = "https://inject.socketlabs.com/api/v1/email";
+        
+        /// <summary>
+        /// RetrySettings object to define retry setting for the Injection API request.
+        /// </summary>
+        public int NumberOfRetries { get; set; } = 0;
 
         /// <summary>
         /// Creates a new instance of the <c>SocketLabsClient</c>.
         /// </summary>
         /// <param name="serverId">Your SocketLabs ServerId number.</param>
         /// <param name="apiKey">Your SocketLabs Injection API key.</param>
-        public SocketLabsClient(int serverId, string apiKey):this(serverId, apiKey, null)
+        public SocketLabsClient(int serverId, string apiKey)
         {
+            _serverId = serverId;
+            _apiKey = apiKey;
             _httpClient = BuildHttpClient(null);
         }
-
+        
         /// <summary>
         /// Creates a new instance of the <c>SocketLabsClient</c> with a proxy.
         /// </summary>
         /// <param name="serverId">Your SocketLabs ServerId number.</param>
         /// <param name="apiKey">Your SocketLabs Injection API key.</param>
         /// <param name="optionalProxy">The WebProxy you would like to use.</param>
-        public SocketLabsClient(int serverId, string apiKey, IWebProxy optionalProxy)
+         public SocketLabsClient(int serverId, string apiKey, IWebProxy optionalProxy)
         {
             _serverId = serverId;
             _apiKey = apiKey;
             _httpClient = BuildHttpClient(optionalProxy);
+
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <c>SocketLabsClient</c> with a provided HttpClient.
+        /// </summary>
+        /// <param name="serverId">Your SocketLabs ServerId number.</param>
+        /// <param name="apiKey">Your SocketLabs Injection API key.</param>
+        /// <param name="httpClient">The HttpClient instance you would like to use.</param>
+        public SocketLabsClient(int serverId, string apiKey, HttpClient httpClient)
+        {
+            _serverId = serverId;
+            _apiKey = apiKey;
+
+            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            ConfigureHttpClient(httpClient);
         }
 
         private HttpClient BuildHttpClient(IWebProxy optionalProxy)
         {
-            var httpClient = optionalProxy != null ? new HttpClient(new HttpClientHandler() {UseProxy = true, Proxy = optionalProxy}) : new HttpClient();
-            httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
+            var httpClient =  optionalProxy != null ? new HttpClient(new HttpClientHandler() { UseProxy = true, Proxy = optionalProxy}) : new HttpClient();
+            ConfigureHttpClient(httpClient);
             return httpClient;
+        }
+
+        private void ConfigureHttpClient(HttpClient httpClient)
+        {
+            httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
         }
 
         /// <summary>
@@ -165,6 +195,7 @@ namespace SocketLabs.InjectionApi
         /// Asynchronously sends a basic email message and returns the response from the Injection API.
         /// </summary>
         /// <param name="message">A <c>BasicMessage</c> object to be sent.</param> 
+        /// <param name="cancellationToken">A <c>CancellationToken</c> to handle cancellation between async threads.</param> 
         /// <returns>A <c>SendResponse</c> of an SocketLabsClient send request.</returns>
         /// <example>
         /// This sample shows you how to Send a Basic Message
@@ -188,21 +219,22 @@ namespace SocketLabs.InjectionApi
         /// }
         ///</code>
         /// </example>
-        public async Task<SendResponse> SendAsync(IBasicMessage message)
-        {  
+        public async Task<SendResponse> SendAsync(IBasicMessage message, CancellationToken cancellationToken)
+        {
             var validator = new SendValidator();
 
             var validationResult = validator.ValidateCredentials(_serverId, _apiKey);
             if (validationResult.Result != SendResult.Success) return validationResult;
 
             validationResult = validator.ValidateMessage(message);
-            if(validationResult.Result != SendResult.Success) return validationResult;
+            if (validationResult.Result != SendResult.Success) return validationResult;
 
             var factory = new InjectionRequestFactory(_serverId, _apiKey);
             var injectionRequest = factory.GenerateRequest(message);
             var json = injectionRequest.GetAsJson();
-
-            var httpResponse = await _httpClient.PostAsync(EndpointUrl, json);
+            
+            var retryHandler = new RetryHandler(_httpClient, EndpointUrl, new RetrySettings(NumberOfRetries));
+            var httpResponse = await retryHandler.SendAsync(json, cancellationToken);
 
             var response = new InjectionResponseParser().Parse(httpResponse);
             return response;
@@ -212,6 +244,7 @@ namespace SocketLabs.InjectionApi
         /// Asynchronously sends a bulk email message and returns the response from the Injection API.
         /// </summary>
         /// <param name="message">A <c>BulkMessage</c> object to be sent.</param>
+        /// <param name="cancellationToken">A <c>CancellationToken</c> to handle cancellation between async threads.</param> 
         /// <returns>A <c>SendResponse</c> of an SocketLabsClient send request.</returns>
         /// <example>
         /// This sample shows you how to Send a Bulk Message
@@ -239,7 +272,7 @@ namespace SocketLabs.InjectionApi
         /// }
         ///</code>
         /// </example>
-        public async Task<SendResponse> SendAsync(IBulkMessage message)
+        public async Task<SendResponse> SendAsync(IBulkMessage message, CancellationToken cancellationToken)
         {
             var validator = new SendValidator();
 
@@ -251,11 +284,13 @@ namespace SocketLabs.InjectionApi
 
             var factory = new InjectionRequestFactory(_serverId, _apiKey);
             var injectionRequest = factory.GenerateRequest(message);
-
-            var httpResponse = await _httpClient.PostAsync(EndpointUrl, injectionRequest.GetAsJson());
+            var json = injectionRequest.GetAsJson();
+            
+            var retryHandler = new RetryHandler(_httpClient, EndpointUrl, new RetrySettings(NumberOfRetries));
+            var httpResponse = await retryHandler.SendAsync(json, cancellationToken);
 
             var response = new InjectionResponseParser().Parse(httpResponse);
-            return response; 
+            return response;
         }
 
         /// <summary>
@@ -289,8 +324,15 @@ namespace SocketLabs.InjectionApi
         {
             try
             {
+                var source = new CancellationTokenSource();
                 //Read this if you have questions: https://blogs.msdn.microsoft.com/pfxteam/2012/04/13/should-i-expose-synchronous-wrappers-for-asynchronous-methods/
-                return Task.Run(() => SendAsync(message)).Result;
+                var sendTask = Task.Run(() => SendAsync(message, source.Token));
+                
+                while (!sendTask.IsCompleted) { }
+                if (sendTask.Status == TaskStatus.Faulted) throw sendTask.Exception;
+                
+                return sendTask.Result;
+                
             }
             //for synchronous usage, try to simplify exceptions being thrown
             catch (AggregateException e)
@@ -336,9 +378,15 @@ namespace SocketLabs.InjectionApi
         {
             try
             {
-                //Read this if you have questions: https://blogs.msdn.microsoft.com/pfxteam/2012/04/13/should-i-expose-synchronous-wrappers-for-asynchronous-methods/
-                return Task.Run(() => SendAsync(message)).Result;
+                var source = new CancellationTokenSource();
 
+                //Read this if you have questions: https://blogs.msdn.microsoft.com/pfxteam/2012/04/13/should-i-expose-synchronous-wrappers-for-asynchronous-methods/
+                var sendTask = Task.Run(() => SendAsync(message, source.Token));
+
+                while (!sendTask.IsCompleted) { }
+                if (sendTask.Status == TaskStatus.Faulted) throw sendTask.Exception;
+
+                return sendTask.Result;
             }
             //for synchronous usage, try to simplify exceptions being thrown
             catch (AggregateException e)
@@ -356,5 +404,7 @@ namespace SocketLabs.InjectionApi
         {
             _httpClient?.Dispose();
         }
+
+
     }
 }

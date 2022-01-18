@@ -1,10 +1,11 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using SocketLabs.InjectionApi;
 using SocketLabs.InjectionApi.Message;
 
 namespace dotNetCoreExample.Examples.Basic
 {
-    public class BasicSendWithProxy : IExample
+    public class BasicSendWithRetry : IExample
     {
         public SendResponse RunExample()
         {
@@ -12,12 +13,13 @@ namespace dotNetCoreExample.Examples.Basic
 
             var client = new SocketLabsClient(ExampleConfig.ServerId, ExampleConfig.ApiKey, proxy)
             {
-                EndpointUrl = ExampleConfig.TargetApi
+                EndpointUrl = ExampleConfig.TargetApi,
+                NumberOfRetries = 3
             };
 
             var message = new BasicMessage();
 
-            message.Subject = "Sending A Test Message Through Proxy";
+            message.Subject = "Sending A Test Message With Retry Enabled";
             message.HtmlBody = "<html>This is the Html Body of my message.</html>";
             message.PlainTextBody = "This is the Plain Text Body of my message.";
 

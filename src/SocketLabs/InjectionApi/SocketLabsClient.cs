@@ -326,11 +326,8 @@ namespace SocketLabs.InjectionApi
             {
                 var source = new CancellationTokenSource();
                 //Read this if you have questions: https://blogs.msdn.microsoft.com/pfxteam/2012/04/13/should-i-expose-synchronous-wrappers-for-asynchronous-methods/
-                var sendTask = Task.Run(() => SendAsync(message, source.Token));
-                
-                while (!sendTask.IsCompleted) { }
-                if (sendTask.Status == TaskStatus.Faulted) throw sendTask.Exception;
-                
+                var sendTask = Task.Run(() => SendAsync(message, source.Token), source.Token);
+               
                 return sendTask.Result;
                 
             }
@@ -381,10 +378,7 @@ namespace SocketLabs.InjectionApi
                 var source = new CancellationTokenSource();
 
                 //Read this if you have questions: https://blogs.msdn.microsoft.com/pfxteam/2012/04/13/should-i-expose-synchronous-wrappers-for-asynchronous-methods/
-                var sendTask = Task.Run(() => SendAsync(message, source.Token));
-
-                while (!sendTask.IsCompleted) { }
-                if (sendTask.Status == TaskStatus.Faulted) throw sendTask.Exception;
+                var sendTask = Task.Run(() => SendAsync(message, source.Token), source.Token);
 
                 return sendTask.Result;
             }

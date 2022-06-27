@@ -1,13 +1,13 @@
 ﻿using System.Runtime.CompilerServices;
 
 #if DEBUG
-[assembly: InternalsVisibleTo("Socketlabs.Test")]
+[assembly: InternalsVisibleTo("Socketlabs.Tests")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 #endif
 
 #if RELEASE
 
-[assembly: InternalsVisibleTo("Socketlabs.Test, PublicKey=0024000004800000940000000602000000240000525341310004000001000100652fcb982bfcde01d0ea92dbbef986cf9e6c1bec2cb1cf56ea1f4d52ef785fa743fcea9d8acf753018545454a87767584bd3033f4d8b1fce2d4b7f68559648a4669fa98e1aa85d9bb2bd7916e6591bb87af5d565916b1f879111337d6d6c12a42848bb8f3cecbce42d6d6ae468fbab0e2e1938bbe27d2ea21162d10ca51104b7")]
-[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2, PublicKey=0024000004800000940000000602000000240000525341310004000001000100c547cac37abd99c8db225ef2f6c8a3602f3b3606cc9891605d02baa56104f4cfc0734aa39b93bf7852f7d9266654753cc297e7d2edfe0bac1cdcf9f717241550e0a7b191195b7667bb4f64bcb8e2121380fd1d9d46ad2d92d2d15605093924cceaf74c4861eff62abf69b9291ed0a340e113be11e6a7d3113e92484cf7045cc7")]
+[assembly: InternalsVisibleTo("Socketlabs.Tests")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 #endif

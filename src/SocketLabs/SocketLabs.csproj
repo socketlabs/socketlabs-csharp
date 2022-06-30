@@ -19,7 +19,7 @@
     <PackageProjectUrl>https://inject.docs.socketlabs.com/</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageLicenseFile>..\..\LICENSE.md</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageTags>email;injection;api;library;client;</PackageTags>
   </PropertyGroup>
 
@@ -33,7 +33,7 @@
       <PackagePath>\</PackagePath>
     </None>
 	<None Include="..\..\LICENSE.md">
-      <Pack>False</Pack>
+      <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>

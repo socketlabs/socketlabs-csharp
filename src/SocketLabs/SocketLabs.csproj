@@ -5,66 +5,42 @@
     <PlatformTarget>anycpu</PlatformTarget>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>SocketLabs</AssemblyName>
-    <PackageId>SocketLabs</PackageId>
+    <PackageId>SocketLabs.EmailDelivery</PackageId>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Version>1.2.3</Version>
+    <Version>1.3.0</Version>
     <Copyright>Copyright © 2018-2022 SocketLabs Acquisition LLC</Copyright>
-    <PackageIconUrl>https://www.socketlabs.com/assets/socketlabs-logo1.png</PackageIconUrl>
-    <Authors>SocketLabs Development Team</Authors>
-    <Product>SocketLabs .Net Client Library</Product>
-    <NoWarn></NoWarn>
-    <TeamCityBuild>false</TeamCityBuild>
-    <AssemblyVersion>1.2.1</AssemblyVersion>
-    <FileVersion>1.2.1</FileVersion>
+    <Authors>Joe Cooper, David Schrenker, Matt Reibach, Ryan Lydzinski, Mike Goodfellow, Saranya Kavuri</Authors>
+	<Product>SocketLabs .Net Client Library</Product>
+    <AssemblyVersion>1.3.0</AssemblyVersion>
+    <FileVersion>1.3.0</FileVersion>
+    <Description>Easily send email messages using the SocketLabs Injection API.</Description>
+    <RepositoryUrl>https://github.com/socketlabs/socketlabs-csharp</RepositoryUrl>
+    <PackageProjectUrl>https://inject.docs.socketlabs.com/</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>..\..\LICENSE.md</PackageLicenseFile>
+    <PackageTags>email;injection;api;library;client;</PackageTags>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TeamCitySignAssembly)' != ''">
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(TEAMCITY_BUILD_PROPERTIES_FILE)' != ''">
-    <TeamCityBuild>true</TeamCityBuild>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.3|AnyCPU'">
-    <WarningsAsErrors />
-  </PropertyGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <Reference Include="System" />
-  </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="help\**" />
-    <EmbeddedResource Remove="help\**" />
-    <None Remove="help\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="InjectionApi\BulkTemplateMessage.cs" />
-    <Compile Remove="InjectionApi\MergeData.cs" />
-    <Compile Remove="InjectionApi\MessageBase.cs" />
-    <Compile Remove="InjectionApi\ValidationResponse.cs" />
-    <Compile Remove="InjectionApi\ValidationResult.cs" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <None Include="SocketLabs.shfbproj" />
+    <None Include="..\..\docs\images\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+	<None Include="..\..\LICENSE.md">
+      <Pack>False</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
-
-  <Target Name="TeamCity" AfterTargets="Build" Condition=" '$(TeamCityBuild)'=='true' AND '$(TargetFileName)' != ''">
-    <GetAssemblyIdentity AssemblyFiles="bin\$(ConfigurationName)\$(TargetFramework)\$(TargetFileName)">
-      <Output TaskParameter="Assemblies" ItemName="AssemblyIdentity" />
-    </GetAssemblyIdentity>
-    <Message Text="##teamcity[buildNumber '%(AssemblyIdentity.Version)']" />
-  </Target>
 
 </Project>

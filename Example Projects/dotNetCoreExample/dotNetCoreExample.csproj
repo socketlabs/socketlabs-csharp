@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
+    <Copyright>Copyright © 2018-2022 SocketLabs Acquisition LLC</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

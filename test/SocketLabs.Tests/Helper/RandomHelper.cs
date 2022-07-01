@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq; 
+using System.Linq;
 using SocketLabs.InjectionApi.Message;
 
-namespace SocketLabs.Test.Helper
+namespace SocketLabs.Tests.Helper
 {
     internal class RandomHelper
     {
@@ -45,7 +45,7 @@ namespace SocketLabs.Test.Helper
                 recipients.Add(new BulkRecipient(RandomEmail()));
             }
             return recipients;
-        } 
+        }
 
         public static int RandomInt()
         {

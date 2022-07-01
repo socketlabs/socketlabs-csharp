@@ -1,8 +1,11 @@
-[![SocketLabs](https://static.socketlabs.com/logos/logo-dark-326x64.png)](https://www.socketlabs.com/developers)
-# [![Twitter Follow](https://img.shields.io/twitter/follow/socketlabs.svg?style=social&label=Follow)](https://twitter.com/socketlabs) [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/socketlabs/socketlabs-csharp/blob/master/CONTRIBUTING.md)
-<!--
-[![GitHub contributors](https://img.shields.io/github/contributors/socketlabs/csharp-socketlabs.svg)](https://github.com/socketlabs/csharp-socketlabs/graphs/contributors)
--->
+[![SocketLabs](https://s3.amazonaws.com/static.socketlabs/logos/logo-dark-317x40.svg)](https://www.socketlabs.com/developers)  
+
+[![Twitter Follow](https://img.shields.io/twitter/follow/socketlabs.svg?style=social&label=Follow)](https://twitter.com/socketlabs) 
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE.md) 
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/socketlabs/socketlabs-csharp/blob/master/CONTRIBUTING.md)
+[![GitHub contributors](https://img.shields.io/github/contributors/socketlabs/socketlabs-csharp.svg)](https://github.com/socketlabs/csharp-socketlabs/graphs/contributors)
+![](https://dev.azure.com/socketlabs/Public%20Projects/_apis/build/status/CSharp-CI?branchName=main)
+
 
 The SocketLabs Email Delivery C# library allows you to easily send email messages via the [SocketLabs Injection API](https://www.socketlabs.com/docs/inject/).  The library makes it easy to build and send any type of message supported by the API, from a simple message to a single recipient all the way to a complex bulk message sent to a group of recipients with unique merge data per recipient.
 
@@ -15,7 +18,6 @@ The SocketLabs Email Delivery C# library allows you to easily send email message
 * [License](#license)
 
 
-<a name="prerequisites-and-installation"></a>
 # Prerequisites and Installation
 ## Prerequisites
 * A supported .NET version
@@ -52,7 +54,6 @@ is download the latest release binaries located at [https://github.com/socketlab
 Once you download the zip file, extract the files, and add the dll's from ```the lib\net45``` directory as references.
 You can do this from the project menu by clicking "Add Reference" then going to the browse option and picking the dll's from there.
 
-<a name="getting-started"></a>
 # Getting Started
 ## Obtaining your API Key and SocketLabs ServerId number
 In order to get started, you'll need to enable the Injection API feature in the [SocketLabs Control Panel](https://cp.socketlabs.com).
@@ -137,7 +138,6 @@ recipient2.MergeData.Add("Name","Recipient2");
 var response = client.Send(message);
 ```
 
-<a name="managing-api-keys"></a>
 ## Managing API Keys
 For ease of demonstration, many of our examples include the ServerId and API
 key directly in our code sample. Generally it is not considered a good practice
@@ -147,9 +147,7 @@ information please see:
 * [Using web.config](https://docs.microsoft.com/en-us/aspnet/identity/overview/features-api/best-practices-for-deploying-passwords-and-other-sensitive-data-to-aspnet-and-azure)
 * [Using Environment Variables](https://docs.microsoft.com/en-us/dotnet/api/system.environment.getenvironmentvariable)
 
-
-<a name="examples-and-use-cases"></a>
-# Examples and Use Cases
+## Examples and Use Cases
 In order to demonstrate the many possible use cases for the SDK, we've provided
 an assortment of code examples. These examples demonstrate many different
 features available to the Injection API and SDK, including using templates
@@ -213,15 +211,8 @@ set and special characters.
 This example demonstrates how to send a bulk message with an AMP Html body.
 For more information about AMP please see [AMP Project](https://amp.dev/documentation/)
 
-<a name="version"></a>
 # Version
-* 1.2.3 - Revert request timeout override. To set the timeout please pass your HttpClient instance via the constructor.
-* 1.2.2 - Adding optional retry logic for Http requests. If configured, the request will retry when certain 500 errors occur (500, 502, 503, 504)
-* 1.2.1 - Adding request timeout value on the client for Http requests
-* 1.2.0 - Can now pass in instance of HTTP client, adds .NET 5.0 support
-* 1.1.0 - Adds Amp Html Support
-* 1.0.0 - Initial Release
+See [Release Notes](./docs/release-notes/latest.md)
 
-<a name="license"></a>
 # License
 The SocketLabs.EmailDelivery library and all associated code, including any code samples, are [MIT Licensed](https://github.com/socketlabs/socketlabs-csharp/blob/master/LICENSE.MD).

@@ -3,9 +3,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SocketLabs.InjectionApi;
 using SocketLabs.InjectionApi.Core;
 using SocketLabs.InjectionApi.Message;
-using SocketLabs.Test.Helper;
+using SocketLabs.Tests.Helper;
 
-namespace SocketLabs.Test.Validation
+namespace SocketLabs.Tests.Validation
 {
     [TestClass]
     public class SendValidatorTest
@@ -25,7 +25,7 @@ namespace SocketLabs.Test.Validation
             //Assert
             Assert.AreEqual(SendResult.MessageValidationEmptySubject, actual);
         }
-        
+
         [TestMethod]
         public void ValidateIMessageBase_ReturnsEmailAddressValidationMissingFrom_WhenFromRecipientIsNull()
         {
@@ -338,7 +338,7 @@ namespace SocketLabs.Test.Validation
             //Assert
             Assert.IsFalse(actual);
         }
-        
+
         [TestMethod]
         public void HasMessageBody_ReturnsFalse_WhenPlainTextBodyAndHtmlBodyAndApiTemplateAndAmpBodyIsEmpty()
         {
@@ -370,7 +370,7 @@ namespace SocketLabs.Test.Validation
             //Arrange
             var message = new BasicMessage
             {
-                ApiTemplate = RandomHelper.RandomInt(1,10)
+                ApiTemplate = RandomHelper.RandomInt(1, 10)
             };
             var validator = new SendValidator();
 
@@ -427,10 +427,10 @@ namespace SocketLabs.Test.Validation
         }
 
         #endregion
-        
+
 
         #region ValidateRecipients(IBasicMessage payload)
-        
+
         [TestMethod]
         public void ValidateRecipients_BasicMessage_ReturnsNoRecipients_WhenToAndCcAndBccIsNull()
         {
@@ -503,7 +503,7 @@ namespace SocketLabs.Test.Validation
             var validator = new SendValidator();
             var message = new BasicMessage
             {
-                To = RandomHelper.RandomListOfRecipients(validator.MaximumRecipientsPerMessage/2),
+                To = RandomHelper.RandomListOfRecipients(validator.MaximumRecipientsPerMessage / 2),
                 Cc = RandomHelper.RandomListOfRecipients(validator.MaximumRecipientsPerMessage / 2),
                 Bcc = RandomHelper.RandomListOfRecipients(validator.MaximumRecipientsPerMessage / 2)
             };
@@ -531,12 +531,12 @@ namespace SocketLabs.Test.Validation
             //Assert
             Assert.AreEqual(SendResult.RecipientValidationMaxExceeded, actual.Result);
         }
-        
+
         #endregion
-        
+
 
         #region ValidateRecipients(IBulkMessage message)
-        
+
         [TestMethod]
         public void ValidateRecipients_BulkMessage_ReturnsNoRecipients_WhenToIsNull()
         {
@@ -573,9 +573,9 @@ namespace SocketLabs.Test.Validation
             var validator = new SendValidator();
             var message = new BulkMessage
             {
-                To = RandomHelper.RandomListOfBulkRecipients(validator.MaximumRecipientsPerMessage +1)
+                To = RandomHelper.RandomListOfBulkRecipients(validator.MaximumRecipientsPerMessage + 1)
             };
-            
+
             //Act
             var actual = validator.ValidateRecipients(message);
 
@@ -634,7 +634,7 @@ namespace SocketLabs.Test.Validation
             //Assert
             Assert.IsFalse(actual);
         }
-        
+
         [TestMethod]
         public void HasFromAddress_ReturnsFalse_WhenFromRecipientIsEmpty()
         {
@@ -670,7 +670,7 @@ namespace SocketLabs.Test.Validation
         }
 
         #endregion
-        
+
 
         #region GetFullRecipientCount
 
@@ -680,7 +680,7 @@ namespace SocketLabs.Test.Validation
             //Arrange
             var message = new BasicMessage
             {
-                To = new List<IEmailAddress> { new EmailAddress(RandomHelper.RandomEmail())}
+                To = new List<IEmailAddress> { new EmailAddress(RandomHelper.RandomEmail()) }
             };
             var validator = new SendValidator();
 
@@ -707,7 +707,7 @@ namespace SocketLabs.Test.Validation
             //Assert
             Assert.IsTrue(actual > 0);
         }
-        
+
         [TestMethod]
         public void GetFullRecipientCount_BasicMessage_ReturnsGT0_WhenOnlyBccRecipientsHasOneValue()
         {
@@ -826,7 +826,7 @@ namespace SocketLabs.Test.Validation
 
 
         #region HasValidCustomHeaders
-        
+
         [TestMethod]
         public void HasValidCustomHeaders_ReturnsFalse_WhenKeyAndValueAreEmpty()
         {
@@ -911,10 +911,10 @@ namespace SocketLabs.Test.Validation
         }
 
         #endregion
-        
+
 
         #region HasInvalidRecipients(IBasicMessage message)
-        
+
         [TestMethod]
         public void HasInvalidRecipients_IBasicMessage_ReturnsListOfOne_WhenToHasOneInvalid()
         {
@@ -1025,7 +1025,7 @@ namespace SocketLabs.Test.Validation
             //Assert
             Assert.AreEqual(1, actual.Count);
         }
-        
+
         [TestMethod]
         public void HasInvalidRecipients_IBasicMessage_ReturnsListOfThree_WhenToHasThreeInvalid()
         {
@@ -1092,7 +1092,7 @@ namespace SocketLabs.Test.Validation
         public void FindInvalidRecipients_ListOfEmailAddress_ReturnsNull_WhenRecipientsIsEmpty()
         {
             //Arrange
-            var  message = new List<IEmailAddress>();
+            var message = new List<IEmailAddress>();
             var validator = new SendValidator();
 
             //Act
@@ -1106,7 +1106,7 @@ namespace SocketLabs.Test.Validation
         public void FindInvalidRecipients_ListOfEmailAddress_ReturnsNull_WhenNoInvalidRecipientsFound()
         {
             //Arrange
-            var message = new List<IEmailAddress> {new EmailAddress(RandomHelper.RandomEmail())};
+            var message = new List<IEmailAddress> { new EmailAddress(RandomHelper.RandomEmail()) };
             var validator = new SendValidator();
 
             //Act
@@ -1134,7 +1134,7 @@ namespace SocketLabs.Test.Validation
 
 
         #region HasInvalidRecipients(BulkRecipient message)
-        
+
         [TestMethod]
         public void FindInvalidRecipients_ListOfBulkRecipient_ReturnsNull_WhenRecipientsIsNull()
         {

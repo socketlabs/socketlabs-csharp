@@ -93,7 +93,7 @@ namespace SocketLabs.InjectionApi.Core
                 CustomHeaders = PopulateCustomHeaders(message.CustomHeaders),
                 From = new AddressJson(message.From.Email, message.From.FriendlyName),
                 Attachments = PopulateList(message.Attachments),
-                Metadata = PopulateMetadata(message.Metadata),
+                Meta = PopulateMetadata(message.Metadata),
                 Tags = PopulateTags(message.Tags)
             };
 

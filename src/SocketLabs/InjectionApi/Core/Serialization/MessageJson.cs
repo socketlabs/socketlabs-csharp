@@ -19,7 +19,7 @@ namespace SocketLabs.InjectionApi.Core.Serialization
             Bcc = new List<AddressJson>();
             MergeData = new MergeDataJson();
             Attachments = new List<AttachmentJson>();
-            Metadata = new List<MetadataHeaderJson>();
+            Meta = new List<MetadataHeaderJson>();
             Tags = new List<string>();
         }
 
@@ -107,7 +107,7 @@ namespace SocketLabs.InjectionApi.Core.Serialization
         /// <summary>
         /// A list of metadata headers added to the message.
         /// </summary>
-        public List<MetadataHeaderJson> Metadata { get; set; }
+        public List<MetadataHeaderJson> Meta { get; set; }
 
         /// <summary>
         /// A list of tag headers added to the message.

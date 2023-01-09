@@ -42,6 +42,10 @@ namespace dotNetCoreExample.Examples.Bulk
             message.ReplyTo.Email = "replyto@example.com";
 
             message.CustomHeaders.Add(new CustomHeader("testMessageHeader", "I am a message header"));
+            
+            message.Metadata.Add("x-mycustommetadata", "I am custom metadata");
+
+            message.Tags.Add("Basic-Complex-Example");
 
             // Build the Content (Note the %% symbols used to denote the data to be merged)
             var html = new StringBuilder();

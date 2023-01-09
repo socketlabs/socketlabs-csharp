@@ -78,6 +78,9 @@ namespace SocketLabs.InjectionApi.Core
             if (message.CustomHeaders != null && message.CustomHeaders.Any())
                 if (!HasValidCustomHeaders(message.CustomHeaders)) return SendResult.MessageValidationInvalidCustomHeaders;
 
+            if (message.Metadata != null && message.Metadata.Any())
+                if (!HasValidMetadata(message.Metadata)) return SendResult.MessageValidationInvalidMetadata;
+
             return SendResult.Success;
         }
 
@@ -332,6 +335,17 @@ namespace SocketLabs.InjectionApi.Core
         internal virtual bool HasValidCustomHeaders(IList<ICustomHeader> customHeaders)
         {
             var result = customHeaders?.Where(item => !item.IsValid);
+            return result == null || !result.Any();
+        }
+
+        /// <summary>
+        /// Check if <c>IMetadata</c> in List are valid
+        /// </summary>
+        /// <param name="metadata"><c><![CDATA[ IList<IMetadata> ]]></c> to validate</param>
+        /// <returns><c>bool</c> result</returns>
+        internal virtual bool HasValidMetadata(IList<IMetadata> metadata)
+        {
+            var result = metadata?.Where(item => !item.IsValid);
             return result == null || !result.Any();
         }
     }

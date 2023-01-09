@@ -397,5 +397,31 @@ namespace SocketLabs.InjectionApi
         }
 
         #endregion
+
+
+        #region List of Metadata
+
+        /// <summary>
+        /// Adds a new metadata header to an existing list of metadata headers.
+        /// </summary>
+        /// <param name="source">The existing list of metadata headers.</param>
+        /// <param name="name">The name of the new metadata header.</param>
+        /// <param name="value">The value for the new metadata header.</param>
+        /// <returns>Instance of <see cref="IMetadata"/></returns>
+        /// <example>
+        /// <code>
+        /// var metadata = new <![CDATA[ List<IMetadata> ]]>();
+        /// metadata.Add("name1", "value1");
+        /// metadata.Add("name2", "value2");
+        /// </code>
+        /// </example>
+        public static IMetadata Add(this IList<IMetadata> source, string name, string value)
+        {
+            var metadata = new Metadata(name, value);
+            source.Add(metadata);
+            return metadata;
+        }
+
+        #endregion
     }
 }

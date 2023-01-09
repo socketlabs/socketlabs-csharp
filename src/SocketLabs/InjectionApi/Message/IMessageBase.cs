@@ -108,5 +108,22 @@ namespace SocketLabs.InjectionApi.Message
         /// (Optional)
         /// </remarks> 
         IList<ICustomHeader> CustomHeaders { get; set; }
+
+
+        /// <summary>
+        /// A list of metadata headers added to the message.
+        /// </summary>
+        /// <remarks>
+        /// (Optional)
+        /// </remarks> 
+        IList<IMetadata> Metadata { get; set; }
+
+        /// <summary>
+        /// A list of tag headers added to the message.
+        /// </summary>
+        /// <remarks>
+        /// (Optional)
+        /// </remarks> 
+        IList<string> Tags { get; set; }
     }
 }

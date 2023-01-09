@@ -92,7 +92,9 @@ namespace SocketLabs.InjectionApi.Core
                 CharSet = message.CharSet,
                 CustomHeaders = PopulateCustomHeaders(message.CustomHeaders),
                 From = new AddressJson(message.From.Email, message.From.FriendlyName),
-                Attachments = PopulateList(message.Attachments)
+                Attachments = PopulateList(message.Attachments),
+                Metadata = PopulateMetadata(message.Metadata),
+                Tags = PopulateTags(message.Tags)
             };
 
             if (message.ReplyTo != null)
@@ -190,6 +192,29 @@ namespace SocketLabs.InjectionApi.Core
         {
 
             var result = mergeData?.Select(item => new MergeFieldJson(item.Key, item.Value));
+            return result?.ToList();
+        }
+
+
+        /// <summary>
+        /// Converting a <c><![CDATA[ IList<IMetadata> ]]></c> to a <c><![CDATA[ List<MetadataHeaderJson> ]]></c>
+        /// </summary>
+        /// <param name="metadata">A <c><![CDATA[ IList<IMetadata> ]]></c> from the message</param>
+        /// <returns>A <c><![CDATA[ List<MetadataHeaderJson> ]]></c> used in generating an InjectionRequest</returns>
+        internal virtual List<MetadataHeaderJson> PopulateMetadata(IList<IMetadata> metadata)
+        {
+            var result = metadata?.Select(item => new MetadataHeaderJson(item.Name, item.Value));
+            return result?.ToList();
+        }
+
+        /// <summary>
+        /// Converting a <c><![CDATA[ IList<ICustomHeader> ]]></c> to a <c><![CDATA[ List<CustomHeadersJson> ]]></c>
+        /// </summary>
+        /// <param name="tags">A <c><![CDATA[ IList<ICustomHeader> ]]></c> from the message</param>
+        /// <returns>A <c><![CDATA[ List<CustomHeadersJson> ]]></c> used in generating an InjectionRequest</returns>
+        internal virtual List<string> PopulateTags(IList<string> tags)
+        {
+            var result = tags.ToList();
             return result?.ToList();
         }
     }

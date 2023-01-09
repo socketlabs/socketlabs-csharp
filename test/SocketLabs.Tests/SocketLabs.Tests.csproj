@@ -6,7 +6,7 @@
     <AssemblyTitle>SocketLabs.Tests</AssemblyTitle>
 	<IsPackable>false</IsPackable>
 	<Product>SocketLabs.Tests</Product>
-    <Copyright>Copyright © 2018-2022 SocketLabs Acquisition LLC</Copyright>
+    <Copyright>Copyright © 2018-2023 SocketLabs Acquisition LLC</Copyright>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Castle.Core" Version="5.1.1" />

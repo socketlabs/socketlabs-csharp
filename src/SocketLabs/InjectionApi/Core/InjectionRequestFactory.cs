@@ -203,7 +203,7 @@ namespace SocketLabs.InjectionApi.Core
         /// <returns>A <c><![CDATA[ List<MetadataHeaderJson> ]]></c> used in generating an InjectionRequest</returns>
         internal virtual List<MetadataHeaderJson> PopulateMetadata(IList<IMetadata> metadata)
         {
-            var result = metadata?.Select(item => new MetadataHeaderJson(item.Name, item.Value));
+            var result = metadata?.Select(item => new MetadataHeaderJson(item.Key, item.Value));
             return result?.ToList();
         }
 

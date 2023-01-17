@@ -912,6 +912,92 @@ namespace SocketLabs.Tests.Validation
 
         #endregion
 
+        #region HasValidMetadataHeaders
+
+        [TestMethod]
+        public void HasValidMetadataHeaders_ReturnsFalse_WhenKeyAndValueAreEmpty()
+        {
+            //Arrange
+            var customHeaders = new List<IMetadata>
+            {
+                new Metadata(string.Empty, string.Empty)
+            };
+            var validator = new SendValidator();
+
+            //Act
+            var actual = validator.HasValidMetadata(customHeaders);
+
+            //Assert
+            Assert.IsFalse(actual);
+        }
+
+        [TestMethod]
+        public void HasValidMetadataHeaders_ReturnsFalse_WhenKeyIsNotEmptyAndValueIsEmpty()
+        {
+            //Arrange
+            var customHeaders = new List<IMetadata>
+            {
+                new Metadata(RandomHelper.RandomString(), string.Empty)
+            };
+            var validator = new SendValidator();
+
+            //Act
+            var actual = validator.HasValidMetadata(customHeaders);
+
+            //Assert
+            Assert.IsFalse(actual);
+        }
+
+        [TestMethod]
+        public void HasValidMetadataHeaders_ReturnsFalse_WhenKeyIsEmptyAndValueIsNotEmpty()
+        {
+            //Arrange
+            var customHeaders = new List<IMetadata>
+            {
+                new Metadata(string.Empty, RandomHelper.RandomString())
+            };
+            var validator = new SendValidator();
+
+            //Act
+            var actual = validator.HasValidMetadata(customHeaders);
+
+            //Assert
+            Assert.IsFalse(actual);
+        }
+
+
+        [TestMethod]
+        public void HasValidMetadataHeaders_ReturnsTrue_WhenDictionaryIsNull()
+        {
+            //Arrange
+            var customHeaders = new List<IMetadata>();
+            var validator = new SendValidator();
+
+            //Act
+            var actual = validator.HasValidMetadata(customHeaders);
+
+            //Assert
+            Assert.IsTrue(actual);
+        }
+
+        [TestMethod]
+        public void HasValidMetadataHeaders_ReturnsTrue_WhenDictionaryIsValid()
+        {
+            //Arrange
+            var customHeaders = new List<IMetadata>
+            {
+                new Metadata(RandomHelper.RandomString(), RandomHelper.RandomString())
+            };
+            var validator = new SendValidator();
+
+            //Act
+            var actual = validator.HasValidMetadata(customHeaders);
+
+            //Assert
+            Assert.IsTrue(actual);
+        }
+
+        #endregion
 
         #region HasInvalidRecipients(IBasicMessage message)
 

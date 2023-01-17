@@ -189,5 +189,10 @@
         /// Invalid custom headers found
         /// </summary>
         MessageValidationInvalidCustomHeaders,
+
+        /// <summary>
+        /// Invalid metadata found
+        /// </summary>
+        MessageValidationInvalidMetadata,
     }
 }

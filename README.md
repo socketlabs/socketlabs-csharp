@@ -36,7 +36,7 @@ PM> Install-Package SocketLabs.EmailDelivery
 Adding a Package Reference to your project:
 
 ```
-<PackageReference Include="SocketLabs.EmailDelivery" Version="1.2.3" />
+<PackageReference Include="SocketLabs.EmailDelivery" Version="1.4.0" />
 ```
 
 .NET CLI users can also use the following command:

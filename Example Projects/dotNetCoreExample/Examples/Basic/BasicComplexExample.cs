@@ -48,6 +48,22 @@ namespace dotNetCoreExample.Examples.Basic
 
             message.CustomHeaders.Add("x-mycustomheader", "I am a message header");
 
+            var metadata = new List<IMetadata>()
+            {
+                new Metadata("example-type", "basic-send-complex"),
+                new Metadata()
+                {
+                    Key = "message-contains",
+                    Value = "attachments, headers"
+                }
+            };
+            message.Metadata.Add(metadata);
+            message.Metadata.Add("x-mycustommetadata", "I am custom metadata");
+            message.Metadata.Add(new Metadata("testMessageHeader", "I am metadata"));
+
+            message.Tags.Add("Basic-Complex-Example");
+            message.Tags.Add("c#-Example");
+
             var attachment = message.Attachments.Add("bus.png", MimeType.PNG, @".\examples\img\bus.png");
             attachment.ContentId = "Bus";
 

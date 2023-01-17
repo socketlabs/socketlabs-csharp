@@ -19,6 +19,8 @@ namespace SocketLabs.InjectionApi.Core.Serialization
             Bcc = new List<AddressJson>();
             MergeData = new MergeDataJson();
             Attachments = new List<AttachmentJson>();
+            Metadata = new List<MetadataHeaderJson>();
+            Tags = new List<string>();
         }
 
         /// <summary>
@@ -101,6 +103,16 @@ namespace SocketLabs.InjectionApi.Core.Serialization
         /// Gets or sets the list of merge data.
         /// </summary>
         public MergeDataJson MergeData { get; set; }
+        
+        /// <summary>
+        /// A list of metadata headers added to the message.
+        /// </summary>
+        public List<MetadataHeaderJson> Metadata { get; set; }
+
+        /// <summary>
+        /// A list of tag headers added to the message.
+        /// </summary>
+        public List<string> Tags { get; set; }
 
         #region Conditional Property Serialization
 
@@ -170,5 +182,6 @@ namespace SocketLabs.InjectionApi.Core.Serialization
         }
 
         #endregion
+
     }
 }

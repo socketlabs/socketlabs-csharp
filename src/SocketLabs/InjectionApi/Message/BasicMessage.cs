@@ -171,6 +171,22 @@ namespace SocketLabs.InjectionApi.Message
         public IList<ICustomHeader> CustomHeaders { get; set; } = new List<ICustomHeader>();
 
         /// <summary>
+        /// A list of metadata headers added to the message.
+        /// </summary>
+        /// <remarks>
+        /// (Optional)
+        /// </remarks> 
+        public IList<IMetadata> Metadata { get; set; } = new List<IMetadata>();
+
+        /// <summary>
+        /// A list of tag headers added to the message.
+        /// </summary>
+        /// <remarks>
+        /// (Optional)
+        /// </remarks> 
+        public IList<string> Tags { get; set; } = new List<string>();
+
+        /// <summary>
         /// Returns the number of recipients and subject for the message, useful for debugging.
         /// </summary>
         public override string ToString()

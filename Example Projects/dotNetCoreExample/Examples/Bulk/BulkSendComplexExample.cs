@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
 using SocketLabs.InjectionApi;
 using SocketLabs.InjectionApi.Message;
@@ -41,7 +42,23 @@ namespace dotNetCoreExample.Examples.Bulk
             message.From.Set("from@example.com", "FromMe");
             message.ReplyTo.Email = "replyto@example.com";
 
-            message.CustomHeaders.Add(new CustomHeader("testMessageHeader", "I am a message header"));
+            var metadata = new List<IMetadata>()
+            {
+                new Metadata("example-type", "bulk-send-complex"),
+                new Metadata()
+                {
+                    Key = "message-contains",
+                    Value = "attachments, headers"
+                }
+            };
+            message.Metadata.Add(metadata);
+            message.Metadata.Add("x-mycustommetadata", "I am custom metadata");
+            message.Metadata.Add(new Metadata("testMessageHeader", "I am metadata"));
+
+            message.Metadata.Add("x-mycustommetadata", "I am custom metadata");
+
+            message.Tags.Add("Bulk-Complex-Example");
+            message.Tags.Add("c#-Example");
 
             // Build the Content (Note the %% symbols used to denote the data to be merged)
             var html = new StringBuilder();

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using SocketLabs.InjectionApi.Message;
 
 namespace SocketLabs.InjectionApi 
@@ -396,6 +397,72 @@ namespace SocketLabs.InjectionApi
             return customHeader;
         }
 
+        #endregion
+
+
+        #region List of Metadata
+
+        /// <summary>
+        /// Adds a new metadata item to an existing list of metadata items.
+        /// </summary>
+        /// <param name="source">The existing list of metadata item.</param>
+        /// <param name="key">The key of the new metadata item.</param>
+        /// <param name="value">The value for the new metadata item.</param>
+        /// <returns>Instance of <see cref="IMetadata"/></returns>
+        /// <example>
+        /// <code>
+        /// var metadata = new <![CDATA[ List<IMetadata> ]]>();
+        /// metadata.Add("key1", "value1");
+        /// metadata.Add("key2", "value2");
+        /// </code>
+        /// </example>
+        public static IMetadata Add(this IList<IMetadata> source, string key, string value)
+        {
+            var metadata = new Metadata(key, value);
+            source.Add(metadata);
+            return metadata;
+        }
+
+        /// <summary>
+        /// Adds a new metadata item to an existing list of metadata items.
+        /// </summary>
+        /// <param name="source">The existing list of metadata item.</param>
+        /// <param name="list">The list of new metadata items to add.</param>
+        /// <returns>Instance of <see cref="IMetadata"/></returns>
+        /// <example>
+        /// <code>
+        /// var metadata = new <![CDATA[ List<IMetadata> ]]>();
+        /// metadata.Add("key1", "value1");
+        /// metadata.Add("key2", "value2");
+        /// </code>
+        /// </example>
+        public static IList<IMetadata> Add(this IList<IMetadata> source, List<IMetadata> list)
+        {
+            foreach (var metadata in list)
+            {
+                source.Add(metadata);
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// Adds a new metadata item to an existing list of metadata items.
+        /// </summary>
+        /// <param name="source">The existing list of metadata item.</param>
+        /// <param name="item">A new metadata items to add.</param>
+        /// <returns>Instance of <see cref="IMetadata"/></returns>
+        /// <example>
+        /// <code>
+        /// var metadata = new <![CDATA[ List<IMetadata> ]]>();
+        /// metadata.Add("key1", "value1");
+        /// metadata.Add("key2", "value2");
+        /// </code>
+        /// </example>
+        public static IMetadata Add(this IList<IMetadata> source, IMetadata item)
+        {
+            source.Add(item);
+            return item;
+        }
         #endregion
     }
 }

@@ -44,7 +44,7 @@ namespace dotNetCoreExample.Examples.Bulk
 
             var metadata = new List<IMetadata>()
             {
-                new Metadata("example-type", "basic-send-complex"),
+                new Metadata("example-type", "bulk-send-complex"),
                 new Metadata()
                 {
                     Key = "message-contains",
@@ -57,7 +57,7 @@ namespace dotNetCoreExample.Examples.Bulk
 
             message.Metadata.Add("x-mycustommetadata", "I am custom metadata");
 
-            message.Tags.Add("Basic-Complex-Example");
+            message.Tags.Add("Bulk-Complex-Example");
             message.Tags.Add("c#-Example");
 
             // Build the Content (Note the %% symbols used to denote the data to be merged)

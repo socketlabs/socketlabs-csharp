@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
 using SocketLabs.InjectionApi.Core;
+using SocketLabs.InjectionApi.Core.Enum;
 using SocketLabs.InjectionApi.Message;
 
 namespace SocketLabs.InjectionApi
@@ -35,8 +37,8 @@ namespace SocketLabs.InjectionApi
         private string UserAgent { get; } = $"SocketLabs-csharp/{typeof(SocketLabsClient).GetTypeInfo().Assembly.GetName().Version}";
 
         private readonly int _serverId;
-        private readonly string _apiKey;
         private readonly HttpClient _httpClient;
+        private string _apiKey;
 
 
         /// <summary>
@@ -228,6 +230,16 @@ namespace SocketLabs.InjectionApi
 
             validationResult = validator.ValidateMessage(message);
             if (validationResult.Result != SendResult.Success) return validationResult;
+            
+            var apiKeyParser = new ApiKeyParser();
+            var parseResult = apiKeyParser.Parse(_apiKey);
+
+            if (parseResult.ResultCode == ApiKeyParseResultCode.Success)
+            {
+                _httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", _apiKey);
+                _apiKey = string.Empty;
+            }
 
             var factory = new InjectionRequestFactory(_serverId, _apiKey);
             var injectionRequest = factory.GenerateRequest(message);
@@ -281,6 +293,17 @@ namespace SocketLabs.InjectionApi
 
             validationResult = validator.ValidateMessage(message);
             if (validationResult.Result != SendResult.Success) return validationResult;
+
+
+            var apiKeyParser = new ApiKeyParser();
+            var parseResult = apiKeyParser.Parse(_apiKey);
+
+            if (parseResult.ResultCode == ApiKeyParseResultCode.Success)
+            {
+                _httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", _apiKey);
+                _apiKey = string.Empty;
+            }
 
             var factory = new InjectionRequestFactory(_serverId, _apiKey);
             var injectionRequest = factory.GenerateRequest(message);

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SocketLabs.InjectionApi.Core.Enum
+﻿namespace SocketLabs.InjectionApi.Core
 {
     /// <summary>
     /// A code describing the result of an attempt to parse an Api key.
     /// </summary>
-    public enum ApiKeyParseResultCode
+    public enum ApiKeyParseResult
     {
 
         /// <summary>

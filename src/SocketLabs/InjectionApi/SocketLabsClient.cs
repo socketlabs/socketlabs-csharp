@@ -7,7 +7,6 @@ using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
 using SocketLabs.InjectionApi.Core;
-using SocketLabs.InjectionApi.Core.Enum;
 using SocketLabs.InjectionApi.Message;
 
 namespace SocketLabs.InjectionApi
@@ -234,7 +233,7 @@ namespace SocketLabs.InjectionApi
             var apiKeyParser = new ApiKeyParser();
             var parseResult = apiKeyParser.Parse(_apiKey);
 
-            if (parseResult.ResultCode == ApiKeyParseResultCode.Success)
+            if (parseResult == ApiKeyParseResult.Success)
             {
                 _httpClient.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", _apiKey);
@@ -293,12 +292,11 @@ namespace SocketLabs.InjectionApi
 
             validationResult = validator.ValidateMessage(message);
             if (validationResult.Result != SendResult.Success) return validationResult;
-
-
+            
             var apiKeyParser = new ApiKeyParser();
             var parseResult = apiKeyParser.Parse(_apiKey);
 
-            if (parseResult.ResultCode == ApiKeyParseResultCode.Success)
+            if (parseResult == ApiKeyParseResult.Success)
             {
                 _httpClient.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", _apiKey);

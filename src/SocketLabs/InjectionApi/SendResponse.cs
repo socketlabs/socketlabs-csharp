@@ -98,7 +98,7 @@
                         return "No valid message body was found in the message";
 
                     case SendResult.InvalidTemplateId:
-                        return "An invalid TemplateId was found in the message";
+                        return "MetadataOrTagsAreTooLarge => “Metadata and tags exceed 12.5KB";
 
                     case SendResult.TemplateHasNoContent:
                         return "The specified TemplateId has no content for the message";

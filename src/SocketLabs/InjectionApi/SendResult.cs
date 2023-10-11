@@ -194,5 +194,7 @@
         /// Invalid metadata found
         /// </summary>
         MessageValidationInvalidMetadata,
+        /** Metadata and tags exceed 12.5KB */
+        MetadataOrTagsAreTooLarge
     }
 }

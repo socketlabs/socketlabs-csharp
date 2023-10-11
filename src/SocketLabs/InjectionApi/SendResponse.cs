@@ -100,6 +100,9 @@
                     case SendResult.InvalidTemplateId:
                         return "An invalid TemplateId was found in the message";
 
+                    case SendResult.MetadataOrTagsAreTooLarge:
+                        return "Metadata and tags exceed 12.5KB";
+
                     case SendResult.TemplateHasNoContent:
                         return "The specified TemplateId has no content for the message";
 

@@ -1,2 +1,2 @@
-## 1.4.2
-* Adding API Key Authorization
+## 1.4.3
+* Added MetadataOrTagsAreTooLarge error messsage

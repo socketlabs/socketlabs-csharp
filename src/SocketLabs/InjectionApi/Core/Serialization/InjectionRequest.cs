@@ -13,12 +13,15 @@ namespace SocketLabs.InjectionApi.Core.Serialization
         /// <summary>
         /// Your SocketLabs ServerId number.
         /// </summary>
-        public readonly int _serverId;
+        private readonly int _serverId;
 
         /// <summary>
         /// Your SocketLabs Injection API key.
         /// </summary>
-        public readonly string? _apiKey;
+        private readonly string? _apiKey;
+
+        public int ServerId => _serverId;
+        public string? ApiKey => _apiKey;
 
         /// <summary>
         /// Creates a new instance of the <c>InjectionRequest</c> class.
@@ -29,7 +32,6 @@ namespace SocketLabs.InjectionApi.Core.Serialization
         {
             _serverId = serverId;
             _apiKey = apiKey;
-            Messages = new List<MessageJson>();
         }
 
         /// <summary>

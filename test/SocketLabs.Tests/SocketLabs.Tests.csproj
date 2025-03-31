@@ -2,7 +2,7 @@
   <PropertyGroup>
     <RootNamespace>SocketLabs.Tests</RootNamespace>
     <AssemblyName>SocketLabs.Tests</AssemblyName>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AssemblyTitle>SocketLabs.Tests</AssemblyTitle>
 	<IsPackable>false</IsPackable>
 	<Product>SocketLabs.Tests</Product>
@@ -25,5 +25,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\SocketLabs\SocketLabs.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ClientTests\" />
   </ItemGroup>
 </Project>

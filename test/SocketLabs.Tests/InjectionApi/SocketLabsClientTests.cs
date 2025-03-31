@@ -36,23 +36,5 @@ namespace SocketLabs.InjectionApi.Tests
             // The client should throw the same exception on subsequent calls.
             await Assert.ThrowsExceptionAsync<HttpRequestException>(async () => await client.SendAsync(message, CancellationToken.None));
         }
-
-
-        [TestMethod()]
-        public async Task CanSendMessage()
-        {
-            var _client = new SocketLabsClient(42006, "DcYYCkSQoV2exx8ksztt.UsImvR6ckr1_r32wC3KPWmd2D1Sz7PGfRx6fJPrg")
-            {
-                NumberOfRetries = 3
-            };
-
-            var message = new BasicMessage();
-            message.To.Add("matt.soler@socketlabs.com");
-            message.From.Email = "do-reply@ai.socketlabs.email";
-            message.Subject = "This is a test";
-            message.HtmlBody = "<p>Hi!</p>";
-
-            var response = await _client.SendAsync(message, CancellationToken.None);
-        }
     }
 }

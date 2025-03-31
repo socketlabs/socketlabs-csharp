@@ -1,4 +1,6 @@
-﻿namespace SocketLabs.InjectionApi.Core.Serialization
+﻿using System;
+
+namespace SocketLabs.InjectionApi.Core.Serialization
 {
     /// <summary>
     /// Data transfer object representing a message result from the Injection Api.
@@ -13,11 +15,11 @@
         /// <summary>
         /// The resulting response ErrorCode of the Injection Api send request
         /// </summary>
-        public string ErrorCode { get; set; }
+        public string? ErrorCode { get; set; }
 
         /// <summary>
         /// An array of AddressResult objects that contain the status of each address that failed. If no messages failed this array is empty.
         /// </summary>
-        public AddressResult[] AddressResults { get; set; }
+        public AddressResult[] AddressResults { get; set; } = Array.Empty<AddressResult>();
     }
 }

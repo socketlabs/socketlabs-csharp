@@ -2,7 +2,7 @@
 
 namespace SocketLabs.InjectionApi.Core
 {
-    public interface IApiKeyParser
+    internal interface IApiKeyParser
     {
         ApiKeyParseResult Parse(string wholeApiKey);
     }

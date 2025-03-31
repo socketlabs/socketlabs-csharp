@@ -31,7 +31,7 @@
         /// var email = new EmailAddress();
         /// </code> 
         /// </example>
-        public EmailAddress() : this(null, null) { }
+        public EmailAddress() { }
 
         /// <summary>
         /// Creates a new instance of the <see cref="IEmailAddress"/> class and sets the email address.
@@ -43,7 +43,7 @@
         /// var email = new EmailAddress("recipient@example.com");
         /// </code>
         /// </example>
-        public EmailAddress(string email):this(email, null) { }
+        public EmailAddress(string? email):this(email, null) { }
 
         /// <summary>
         /// Creates a new instance of the email address class and sets the email address and the friendly name.
@@ -56,7 +56,7 @@
         /// var email = new EmailAddress("recipient@example.com", "Recipient");
         /// </code>
         /// </example>
-        public EmailAddress(string email, string friendlyName)
+        public EmailAddress(string? email, string? friendlyName)
         {
             Email = email;
             FriendlyName = friendlyName;
@@ -65,12 +65,12 @@
         /// <summary>
         /// A valid email address
         /// </summary>
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         /// <summary>
         /// The friendly or display name for the recipient.
         /// </summary>
-        public string FriendlyName { get; set; }
+        public string? FriendlyName { get; set; }
 
         internal readonly char[] BadEmailCharacters =  { ',', ' ', ';', (char)191 };
 
@@ -88,7 +88,7 @@
                 if (string.IsNullOrWhiteSpace(Email))
                     return false;
 
-                var parts = Email.Split('@');
+                var parts = Email!.Split('@');
 
                 if (parts.Length != 2)
                     return false;
@@ -109,12 +109,12 @@
         /// Represents the email address as a string similar to how it would look in an email client.  Useful for debugging.
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
+        public override string? ToString()
         {
             if (!string.IsNullOrWhiteSpace(FriendlyName))
                 return $"{FriendlyName} <{Email}>";
 
-            return Email;
+            return Email ?? base.ToString();
         }
     }
 }

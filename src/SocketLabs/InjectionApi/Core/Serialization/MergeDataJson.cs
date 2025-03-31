@@ -20,12 +20,12 @@ namespace SocketLabs.InjectionApi.Core.Serialization
         /// <summary>
         /// Defines merge field data for each message.
         /// </summary>
-        public List<List<MergeFieldJson>> PerMessage { get; set; }
+        public List<List<MergeFieldJson>> PerMessage { get; set; } = new();
 
         /// <summary>
         /// Defines merge field data for all messages in the request.
         /// </summary>
-        public List<MergeFieldJson> Global { get; set; }
+        public List<MergeFieldJson> Global { get; set; } = new();
 
         #region Conditional Property Serialization
 
@@ -39,7 +39,7 @@ namespace SocketLabs.InjectionApi.Core.Serialization
         /// <returns><c>bool</c> result</returns>
         public bool ShouldSerializePerMessage()
         {
-            return PerMessage == null || PerMessage.Count > 0;
+            return PerMessage.Count > 0;
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace SocketLabs.InjectionApi.Core.Serialization
         /// <returns><c>bool</c> result</returns>
         public bool ShouldSerializeGlobal()
         {
-            return Global == null || Global.Count > 0;
+            return Global.Count > 0;
         }
 
         #endregion

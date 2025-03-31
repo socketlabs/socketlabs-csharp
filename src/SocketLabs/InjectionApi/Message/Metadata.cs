@@ -24,18 +24,6 @@
     public class Metadata : IMetadata
     {
         /// <summary>
-        /// Creates a new instance of the Metadata class.
-        /// </summary>
-        /// <example>
-        /// <code>
-        /// var metadata = new Metadata();
-        /// metadata.Name = "key1";
-        /// metadata.Value = "value1";
-        /// </code>
-        /// </example>
-        public Metadata() { }
-
-        /// <summary>
         /// Creates a new instance of the Metadata class and sets the name and value pair.
         /// </summary>
         /// <param name="key">The name of your metadata header.</param>

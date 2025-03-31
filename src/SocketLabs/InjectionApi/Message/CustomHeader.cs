@@ -24,18 +24,6 @@
     public class CustomHeader : ICustomHeader
     {
         /// <summary>
-        /// Creates a new instance of the CustomHeader class.
-        /// </summary>
-        /// <example>
-        /// <code>
-        /// var header1 = new CustomHeader();
-        /// header1.Name = "name1";
-        /// header1.Value = "value1";
-        /// </code>
-        /// </example>
-        public CustomHeader() { }
-
-        /// <summary>
         /// Creates a new instance of the CustomHeader class and sets the name and value pair.
         /// </summary>
         /// <param name="name">The name of your custom header.</param>

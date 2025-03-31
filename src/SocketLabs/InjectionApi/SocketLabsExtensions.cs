@@ -103,7 +103,7 @@ namespace SocketLabs.InjectionApi
         /// emailList.Add("recipient@example.com", "Recipient", mergeData);
         /// </code>
         /// </example>
-        public static IBulkRecipient Add(this IList<IBulkRecipient> source, string emailAddress, string friendlyName, IDictionary<string, string> mergeData)
+        public static IBulkRecipient Add(this IList<IBulkRecipient> source, string emailAddress, string? friendlyName, IDictionary<string, string> mergeData)
         {
             var recipient = new BulkRecipient(emailAddress, friendlyName, mergeData);
             source.Add(recipient);
@@ -147,9 +147,9 @@ namespace SocketLabs.InjectionApi
         /// emailList.Add("recipient@example.com", "Recipient");
         /// </code>
         /// </example>
-        public static IBulkRecipient Add(this IList<IBulkRecipient> source, string emailAddress, string friendlyName)
+        public static IBulkRecipient Add(this IList<IBulkRecipient> source, string emailAddress, string? friendlyName)
         {
-            return Add(source, emailAddress, friendlyName, null);
+            return Add(source, emailAddress, friendlyName, new Dictionary<string,string>());
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace SocketLabs.InjectionApi
         /// </example>
         public static IBulkRecipient Add(this IList<IBulkRecipient> source, string emailAddress)
         {
-            return Add(source, emailAddress, (string)null);
+            return Add(source, emailAddress, (string?)null);
         }
 
         #endregion
@@ -186,7 +186,7 @@ namespace SocketLabs.InjectionApi
         /// emailList.Add("recipient@example.com", "Recipient");
         /// </code>
         /// </example>
-        public static IEmailAddress Add(this IList<IEmailAddress> source, string emailAddress, string friendlyName)
+        public static IEmailAddress Add(this IList<IEmailAddress> source, string emailAddress, string? friendlyName)
         {
             var recipient = new EmailAddress(emailAddress, friendlyName);
             source.Add(recipient);

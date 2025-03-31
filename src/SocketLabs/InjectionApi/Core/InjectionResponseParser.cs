@@ -23,6 +23,14 @@ namespace SocketLabs.InjectionApi.Core
 
             var injectionResponse = JsonConvert.DeserializeObject<InjectionResponseDto>(contentString);
 
+            if (injectionResponse is null)
+            {
+                return new SendResponse()
+                {
+                    Result = SendResult.UnknownError
+                };
+            }
+
             var resultEnum = DetermineSendResult(injectionResponse, httpResponse);
             var newResponse = new SendResponse
             {

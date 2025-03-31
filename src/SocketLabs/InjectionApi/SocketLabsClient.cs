@@ -37,8 +37,8 @@ namespace SocketLabs.InjectionApi
 
         private readonly int _serverId;
         private readonly HttpClient _httpClient;
-        private string _apiKey;
-
+        private readonly string _apiKey;
+        private readonly IInjectionRequestFactory _injectionRequestFactory;
 
         /// <summary>
         /// The SocketLabs Injection API endpoint Url
@@ -60,20 +60,45 @@ namespace SocketLabs.InjectionApi
             _serverId = serverId;
             _apiKey = apiKey;
             _httpClient = BuildHttpClient(null);
+
+            var apiKeyParser = new ApiKeyParser();
+            var parseResult = apiKeyParser.Parse(_apiKey);
+
+            if (parseResult == ApiKeyParseResult.Success)
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
+                _injectionRequestFactory = new InjectionRequestFactory(_serverId, null);
+            }
+            else
+            {
+                _injectionRequestFactory = new InjectionRequestFactory(_serverId, _apiKey);
+            }
         }
-        
+
         /// <summary>
         /// Creates a new instance of the <c>SocketLabsClient</c> with a proxy.
         /// </summary>
         /// <param name="serverId">Your SocketLabs ServerId number.</param>
         /// <param name="apiKey">Your SocketLabs Injection API key.</param>
         /// <param name="optionalProxy">The WebProxy you would like to use.</param>
-         public SocketLabsClient(int serverId, string apiKey, IWebProxy optionalProxy)
+        public SocketLabsClient(int serverId, string apiKey, IWebProxy optionalProxy)
         {
             _serverId = serverId;
             _apiKey = apiKey;
             _httpClient = BuildHttpClient(optionalProxy);
 
+            var apiKeyParser = new ApiKeyParser();
+            var parseResult = apiKeyParser.Parse(_apiKey);
+
+            if (parseResult == ApiKeyParseResult.Success)
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
+                _injectionRequestFactory = new InjectionRequestFactory(_serverId, null);
+            }
+            else
+            {
+                _injectionRequestFactory = new InjectionRequestFactory(_serverId, _apiKey);
+            }
         }
 
         /// <summary>
@@ -89,9 +114,22 @@ namespace SocketLabs.InjectionApi
 
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
             ConfigureHttpClient(httpClient);
+
+            var apiKeyParser = new ApiKeyParser();
+            var parseResult = apiKeyParser.Parse(_apiKey);
+
+            if (parseResult == ApiKeyParseResult.Success)
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
+                _injectionRequestFactory = new InjectionRequestFactory(_serverId, null);
+            }
+            else
+            {
+                _injectionRequestFactory = new InjectionRequestFactory(_serverId, _apiKey);
+            }
         }
 
-        private HttpClient BuildHttpClient(IWebProxy optionalProxy)
+        private HttpClient BuildHttpClient(IWebProxy? optionalProxy)
         {
             var httpClient =  optionalProxy != null ? new HttpClient(new HttpClientHandler() { UseProxy = true, Proxy = optionalProxy}) : new HttpClient();
             ConfigureHttpClient(httpClient);
@@ -134,8 +172,8 @@ namespace SocketLabs.InjectionApi
             string toAddress, 
             string fromAddress, 
             string subject, 
-            string htmlContent, 
-            string textContent)
+            string? htmlContent, 
+            string? textContent)
         {
             var client = new SocketLabsClient(serverId, apiKey);
  
@@ -230,18 +268,7 @@ namespace SocketLabs.InjectionApi
             validationResult = validator.ValidateMessage(message);
             if (validationResult.Result != SendResult.Success) return validationResult;
             
-            var apiKeyParser = new ApiKeyParser();
-            var parseResult = apiKeyParser.Parse(_apiKey);
-
-            if (parseResult == ApiKeyParseResult.Success)
-            {
-                _httpClient.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", _apiKey);
-                _apiKey = string.Empty;
-            }
-
-            var factory = new InjectionRequestFactory(_serverId, _apiKey);
-            var injectionRequest = factory.GenerateRequest(message);
+            var injectionRequest = _injectionRequestFactory.GenerateRequest(message);
             var json = injectionRequest.GetAsJson();
             
             var retryHandler = new RetryHandler(_httpClient, EndpointUrl, new RetrySettings(NumberOfRetries));
@@ -296,15 +323,7 @@ namespace SocketLabs.InjectionApi
             var apiKeyParser = new ApiKeyParser();
             var parseResult = apiKeyParser.Parse(_apiKey);
 
-            if (parseResult == ApiKeyParseResult.Success)
-            {
-                _httpClient.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", _apiKey);
-                _apiKey = string.Empty;
-            }
-
-            var factory = new InjectionRequestFactory(_serverId, _apiKey);
-            var injectionRequest = factory.GenerateRequest(message);
+            var injectionRequest = _injectionRequestFactory.GenerateRequest(message);
             var json = injectionRequest.GetAsJson();
             
             var retryHandler = new RetryHandler(_httpClient, EndpointUrl, new RetrySettings(NumberOfRetries));
@@ -419,7 +438,5 @@ namespace SocketLabs.InjectionApi
         {
             _httpClient?.Dispose();
         }
-
-
     }
 }

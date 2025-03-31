@@ -11,7 +11,7 @@ namespace SocketLabs.InjectionApi.Core.Serialization
         /// </summary>
         /// <param name="emailAddress">A valid email address</param>
         /// <param name="friendlyName">The friendly or display name for the recipient.</param>
-        public AddressJson(string emailAddress, string friendlyName = null)
+        public AddressJson(string emailAddress, string? friendlyName = null)
         {
             EmailAddress = emailAddress;
             FriendlyName = friendlyName;
@@ -25,6 +25,6 @@ namespace SocketLabs.InjectionApi.Core.Serialization
         /// <summary>
         /// The friendly or display name for the recipient.
         /// </summary>
-        public string FriendlyName { get; set; }
+        public string? FriendlyName { get; set; }
     }
 }

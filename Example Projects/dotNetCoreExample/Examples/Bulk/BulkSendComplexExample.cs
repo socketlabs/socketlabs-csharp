@@ -45,11 +45,7 @@ namespace dotNetCoreExample.Examples.Bulk
             var metadata = new List<IMetadata>()
             {
                 new Metadata("example-type", "bulk-send-complex"),
-                new Metadata()
-                {
-                    Key = "message-contains",
-                    Value = "attachments, headers"
-                }
+                new Metadata("message-contains","attachments, headers")
             };
             message.Metadata.Add(metadata);
             message.Metadata.Add("x-mycustommetadata", "I am custom metadata");

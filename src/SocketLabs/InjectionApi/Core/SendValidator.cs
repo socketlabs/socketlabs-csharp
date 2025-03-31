@@ -290,7 +290,7 @@ namespace SocketLabs.InjectionApi.Core
         /// <returns>A <c><![CDATA[ List<AddressResult> ]]></c> if an invalid email address is found.</returns>
         /// <see cref="IEmailAddress"/>
         /// <see cref="AddressResult"/>
-        internal virtual List<AddressResult> FindInvalidRecipients(IList<IEmailAddress> recipients)
+        internal virtual List<AddressResult>? FindInvalidRecipients(IList<IEmailAddress>? recipients)
         {
             var invalid = recipients?.Where(item => !item.IsValid).Select(x => new AddressResult()
             {
@@ -312,7 +312,7 @@ namespace SocketLabs.InjectionApi.Core
         /// <returns>A <c><![CDATA[ List<AddressResult> ]]></c> if an invalid email address is found.</returns>
         /// <see cref="IBulkRecipient"/>
         /// <see cref="AddressResult"/>
-        internal virtual List<AddressResult> FindInvalidRecipients(IList<IBulkRecipient> recipients)
+        internal virtual List<AddressResult>? FindInvalidRecipients(IList<IBulkRecipient> recipients)
         {
             var invalid = recipients?.Where(item => !item.IsValid).Select(x => new AddressResult()
             {

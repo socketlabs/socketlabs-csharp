@@ -29,20 +29,6 @@ namespace SocketLabs.InjectionApi.Message
         /// <summary>
         /// Initializes a new instance of the <see cref="Attachment "/> class
         /// </summary>
-        /// <example>
-        /// <code>
-        /// var attachment = new Attachment();
-        /// attachment.Name = Path.GetFileName(@"c:\bus.png");
-        /// attachment.Content = File.ReadAllBytes(@"c:\bus.png");
-        /// attachment.MimeType = "image/png";
-        /// </code>
-        /// </example>
-        public Attachment() : this(null, null, (byte[]) null) { }
-
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Attachment "/> class
-        /// </summary>
         /// <param name="filePath">The path to your attachment on your local system.</param>
         /// <example>
         /// <code>
@@ -131,7 +117,7 @@ namespace SocketLabs.InjectionApi.Message
         /// <summary>
         /// When set, used to embed an image within the body of an email message.
         /// </summary>
-        public string ContentId { get; set; }
+        public string? ContentId { get; set; }
 
         /// <summary>
         /// The byte array containing the contents of an attachment.

@@ -41,7 +41,7 @@ namespace SocketLabs.InjectionApi.Message
         /// <summary>
         /// The friendly or display name for the recipient.
         /// </summary>
-        string FriendlyName { get; set; }
+        string? FriendlyName { get; set; }
 
         /// <summary>
         /// Determines if the Email Address is valid.

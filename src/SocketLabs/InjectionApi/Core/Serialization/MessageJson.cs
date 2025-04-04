@@ -27,97 +27,97 @@ namespace SocketLabs.InjectionApi.Core.Serialization
         /// Gets or sets the list of To recipients.
         /// </summary> 
         [JsonProperty("To", NullValueHandling = NullValueHandling.Ignore)]
-        public List<AddressJson> To { get; set; }
+        public List<AddressJson> To { get; set; } = new();
 
         /// <summary>
         /// Gets or sets the From address.
         /// </summary>
-        public AddressJson From { get; set; }
+        public AddressJson? From { get; set; }
 
         /// <summary>
         /// Gets or sets the instance of the message Subject.
         /// </summary>
-        public string Subject { get; set; }
+        public string? Subject { get; set; }
 
         /// <summary>
         /// Gets or sets the plain text portion of the message body.        
         /// </summary>
-        public string TextBody { get; set; }
+        public string? TextBody { get; set; }
 
         /// <summary>
         /// Gets or sets the HTML portion of the message body.
         /// </summary>
-        public string HtmlBody { get; set; }
+        public string? HtmlBody { get; set; }
 
         /// <summary>
         /// Gets or sets the AMP portion of the message body.
         /// </summary>
-        public string AmpBody { get; set; }
+        public string? AmpBody { get; set; }
 
         /// <summary>
         /// Gets or sets the Api Template for the message.
         /// </summary>
-        public string ApiTemplate { get; set; }
+        public string? ApiTemplate { get; set; }
 
         /// <summary>
         /// Gets or sets the custom MailingId for the message.
         /// </summary>
-        public string MailingId { get; set; }
+        public string? MailingId { get; set; }
 
         /// <summary>
         /// Gets or sets the custom MessageId for the message.
         /// </summary>
-        public string MessageId { get; set; }
+        public string? MessageId { get; set; }
 
         /// <summary>
         /// The optional character set for your message.
         /// </summary>
-        public string CharSet { get; set; }
+        public string? CharSet { get; set; }
 
         /// <summary>
         /// A list of custom message headers added to the message.
         /// </summary>
-        public List<CustomHeadersJson> CustomHeaders { get; set; }
-        
+        public List<CustomHeadersJson> CustomHeaders { get; set; } = new();
+
         /// <summary>
         /// Gets or sets the list of CC recipients.
         /// </summary>
-        public List<AddressJson> Cc { get; set; }
+        public List<AddressJson> Cc { get; set; } = new();
 
         /// <summary>
         /// Gets or sets the list of BCC recipients.
         /// </summary>
-        public List<AddressJson> Bcc { get; set; }
-        
+        public List<AddressJson> Bcc { get; set; } = new();
+
         /// <summary>
         /// Gets or sets the Reply To address.
         /// </summary>
-        public AddressJson ReplyTo { get; set; }
+        public AddressJson? ReplyTo { get; set; }
 
         /// <summary>
         /// Gets or sets the list of attachments.
         /// </summary>
-        public List<AttachmentJson> Attachments { get; set; }
+        public List<AttachmentJson> Attachments { get; set; } = new();
 
         /// <summary>
         /// Gets or sets the list of merge data.
         /// </summary>
-        public MergeDataJson MergeData { get; set; }
-        
+        public MergeDataJson? MergeData { get; set; }
+
         /// <summary>
         /// A list of metadata headers added to the message.
         /// </summary>
-        public List<MetadataHeaderJson> Metadata { get; set; }
+        public List<MetadataHeaderJson> Metadata { get; set; } = new();
 
         /// <summary>
         /// A list of tag headers added to the message.
         /// </summary>
-        public List<string> Tags { get; set; }
+        public List<string> Tags { get; set; } = new();
 
         #region Conditional Property Serialization
 
         /// <summary>
-        /// Check if ro recipients should be serialized.
+        /// Check if no recipients should be serialized.
         /// </summary>
         /// <remarks>
         /// Don't serialize the collection if they are null or empty.
@@ -126,7 +126,7 @@ namespace SocketLabs.InjectionApi.Core.Serialization
         /// <returns><c>bool</c> result</returns>
         public bool ShouldSerializeTo()
         {
-            return To == null || To.Count > 0;
+            return To.Count > 0;
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace SocketLabs.InjectionApi.Core.Serialization
         /// <returns><c>bool</c> result</returns>
         public bool ShouldSerializeCc()
         {
-            return Cc == null || Cc.Count > 0;
+            return Cc.Count > 0;
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace SocketLabs.InjectionApi.Core.Serialization
         /// <returns><c>bool</c> result</returns>
         public bool ShouldSerializeBcc()
         {
-            return Bcc == null || Bcc.Count > 0;
+            return Bcc.Count > 0;
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace SocketLabs.InjectionApi.Core.Serialization
         /// <returns><c>bool</c> result</returns>
         public bool ShouldSerializeAttachment()
         {
-            return Attachments == null || Attachments.Count > 0;
+            return Attachments.Count > 0;
         }
 
         #endregion

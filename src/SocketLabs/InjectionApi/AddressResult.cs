@@ -8,7 +8,7 @@
         /// <summary>
         /// The recipient's email address.
         /// </summary>
-        public string EmailAddress { get; set; }
+        public string? EmailAddress { get; set; }
 
         /// <summary>
         /// Whether the recipient was accepted for delivery.
@@ -18,7 +18,7 @@
         /// <summary>
         /// An error code detailing why the recipient was not accepted.
         /// </summary>
-        public string ErrorCode { get; set; }
+        public string? ErrorCode { get; set; }
 
         /// <summary>
         /// Represents the <c>AddressResult</c> as a string.  Useful for debugging.

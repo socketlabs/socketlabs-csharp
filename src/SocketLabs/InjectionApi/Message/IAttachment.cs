@@ -29,7 +29,7 @@ namespace SocketLabs.InjectionApi.Message
         /// <summary>
         /// When set, used to embed an image within the body of an email message.
         /// </summary>
-        string ContentId { get; set; }
+        string? ContentId { get; set; }
 
         /// <summary>
         /// The MIME type of the attachment.

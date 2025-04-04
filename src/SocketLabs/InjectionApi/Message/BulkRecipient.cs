@@ -95,7 +95,7 @@ namespace SocketLabs.InjectionApi.Message
         /// var email = new BulkRecipient("recipient@example.com", "Recipient", mergeData);
         /// </code>
         /// </example>
-        public BulkRecipient(string email, string friendlyName, IDictionary<string, string> mergeData)
+        public BulkRecipient(string email, string? friendlyName, IDictionary<string, string>? mergeData)
         { 
             Email = email;
             FriendlyName = friendlyName;
@@ -111,7 +111,7 @@ namespace SocketLabs.InjectionApi.Message
         /// <summary>
         /// The friendly or display name for the recipient.
         /// </summary>
-        public string FriendlyName { get; set; }
+        public string? FriendlyName { get; set; }
 
         /// <summary>
         /// A dictionary containing MergeData items unique to the recipient.

@@ -12,14 +12,14 @@ namespace SocketLabs.InjectionApi.Core
     internal class InjectionRequestFactory : IInjectionRequestFactory
     {
         private readonly int _serverId;
-        private readonly string _apiKey;
+        private readonly string? _apiKey;
 
         /// <summary>
         /// Creates a new instance of the <c>InjectionRequestFactory</c>.
         /// </summary>
         /// <param name="serverId">Your SocketLabs ServerId number.</param>
-        /// <param name="apiKey">Your SocketLabs Injection API key.</param>
-        public InjectionRequestFactory(int serverId, string apiKey)
+        /// <param name="apiKey">Your SocketLabs Injection API key. Set to null if using Bearer token.</param>
+        public InjectionRequestFactory(int serverId, string? apiKey)
         {
             _serverId = serverId;
             _apiKey = apiKey;
@@ -41,7 +41,7 @@ namespace SocketLabs.InjectionApi.Core
 
             request.Messages.Add(jsonMsg);
 
-            if (message.ReplyTo != null)
+            if (message.ReplyTo?.Email is not null)
                 jsonMsg.ReplyTo = new AddressJson(message.ReplyTo.Email, message.ReplyTo.FriendlyName);
 
             return request;
@@ -63,10 +63,13 @@ namespace SocketLabs.InjectionApi.Core
 
             // handle merge data per recipient for message 
             var mergeDataForEmail = GetBulkMergeFields(message.To);
-            jsonMsg.MergeData.PerMessage = mergeDataForEmail;
+            jsonMsg.MergeData = new()
+            {
+                PerMessage = mergeDataForEmail,
 
-            // handle global (per message) merge data
-            jsonMsg.MergeData.Global = PopulateMergeData(message.GlobalMergeData);
+                // handle global (per message) merge data
+                Global = PopulateMergeData(message.GlobalMergeData)
+            };
 
             request.Messages.Add(jsonMsg);
 
@@ -90,18 +93,19 @@ namespace SocketLabs.InjectionApi.Core
                 MailingId = message.MailingId,
                 MessageId = message.MessageId,
                 CharSet = message.CharSet,
-                CustomHeaders = PopulateCustomHeaders(message.CustomHeaders),
-                From = new AddressJson(message.From.Email, message.From.FriendlyName),
+                CustomHeaders = PopulateCustomHeaders(message.CustomHeaders),              
                 Attachments = PopulateList(message.Attachments),
                 Metadata = PopulateMetadata(message.Metadata),
                 Tags = PopulateTags(message.Tags)
             };
+            if (message.From?.Email is not null)
+                jsonMsg.From = new AddressJson(message.From.Email, message.From.FriendlyName);
 
-            if (message.ReplyTo != null)
+            if (message.ReplyTo?.Email is not null)
                 jsonMsg.ReplyTo = new AddressJson(message.ReplyTo.Email, message.ReplyTo.FriendlyName);
 
             if (message.ApiTemplate.HasValue)
-                jsonMsg.ApiTemplate = message.ApiTemplate.ToString();
+                jsonMsg.ApiTemplate = message.ApiTemplate?.ToString();
 
             return jsonMsg;
         }
@@ -113,9 +117,6 @@ namespace SocketLabs.InjectionApi.Core
         /// <returns>A <c><![CDATA[ List<AttachmentJson> ]]></c> used in generating an InjectionRequest</returns>
         internal virtual List<AttachmentJson> PopulateList(IEnumerable<IAttachment> attachments)
         {
-            if (attachments == null)
-                return null;
-
             var results = new List<AttachmentJson>();
 
             foreach (var attachment in attachments)
@@ -140,8 +141,8 @@ namespace SocketLabs.InjectionApi.Core
         /// <returns>A <c><![CDATA[ List<CustomHeadersJson> ]]></c> used in generating an InjectionRequest</returns>
         internal virtual List<CustomHeadersJson> PopulateCustomHeaders(IList<ICustomHeader> customHeaders)
         {
-            var result = customHeaders?.Select(item => new CustomHeadersJson(item.Name, item.Value));
-            return result?.ToList();
+            var result = customHeaders.Select(item => new CustomHeadersJson(item.Name, item.Value));
+            return result.ToList();
         }
 
         /// <summary>
@@ -151,8 +152,10 @@ namespace SocketLabs.InjectionApi.Core
         /// <returns>A <c><![CDATA[ List<AddressJson> ]]></c> used in generating an InjectionRequest</returns>
         internal virtual List<AddressJson> PopulateList(IEnumerable<IEmailAddress> recipients)
         {
-            var result = recipients?.Select(item => new AddressJson(item.Email, item.FriendlyName));
-            return result?.ToList();
+            var result = recipients.Where(x => x.Email is not null)
+                .Select(item => new AddressJson(item.Email!, item.FriendlyName));
+
+            return result.ToList();
         }
 
         /// <summary>
@@ -160,24 +163,26 @@ namespace SocketLabs.InjectionApi.Core
         /// </summary>
         /// <param name="recipients">A <c><![CDATA[ IEnumerable<IBulkRecipient> ]]></c> from the message</param>
         /// <returns>A <c><![CDATA[ List<List<MergeFieldJson>> ]]></c> used in generating an InjectionRequest</returns>
-        internal virtual List<List<MergeFieldJson>> GetBulkMergeFields(IEnumerable<IBulkRecipient> recipients)
+        internal virtual List<List<MergeFieldJson>> GetBulkMergeFields(IEnumerable<IBulkRecipient>? recipients)
         {
             var result = new List<List<MergeFieldJson>>();
-
-            //each recipient get's their own list of merge fields
-            foreach (var recipient in recipients)
+            if (recipients is not null) 
             {
-                // Get any merge data associated with the Recipients and put it in the MergeData section
-                var recipientMergeFields = recipient.MergeData?.Select(mergeField => new MergeFieldJson(mergeField.Key, mergeField.Value)).ToList() ??
-                                                 new List<MergeFieldJson>();
+                //each recipient get's their own list of merge fields
+                foreach (var recipient in recipients)
+                {
+                    // Get any merge data associated with the Recipients and put it in the MergeData section
+                    var recipientMergeFields = recipient.MergeData?.Select(mergeField => new MergeFieldJson(mergeField.Key, mergeField.Value)).ToList() ??
+                                                     new List<MergeFieldJson>();
 
-                recipientMergeFields.Add(new MergeFieldJson("DeliveryAddress", recipient.Email));
+                    recipientMergeFields.Add(new MergeFieldJson("DeliveryAddress", recipient.Email));
 
-                //don't include friendly name if it hasn't been provided
-                if (!string.IsNullOrWhiteSpace(recipient.FriendlyName))
-                    recipientMergeFields.Add(new MergeFieldJson("RecipientName", recipient.FriendlyName));
+                    //don't include friendly name if it hasn't been provided
+                    if (!string.IsNullOrWhiteSpace(recipient.FriendlyName))
+                        recipientMergeFields.Add(new MergeFieldJson("RecipientName", recipient.FriendlyName!));
 
-                result.Add(recipientMergeFields);
+                    result.Add(recipientMergeFields);
+                }        
             }
 
             return result;
@@ -191,8 +196,8 @@ namespace SocketLabs.InjectionApi.Core
         internal virtual List<MergeFieldJson> PopulateMergeData(IDictionary<string, string> mergeData)
         {
 
-            var result = mergeData?.Select(item => new MergeFieldJson(item.Key, item.Value));
-            return result?.ToList();
+            var result = mergeData.Select(item => new MergeFieldJson(item.Key, item.Value));
+            return result.ToList();
         }
 
 
@@ -203,8 +208,8 @@ namespace SocketLabs.InjectionApi.Core
         /// <returns>A <c><![CDATA[ List<MetadataHeaderJson> ]]></c> used in generating an InjectionRequest</returns>
         internal virtual List<MetadataHeaderJson> PopulateMetadata(IList<IMetadata> metadata)
         {
-            var result = metadata?.Select(item => new MetadataHeaderJson(item.Key, item.Value));
-            return result?.ToList();
+            var result = metadata.Select(item => new MetadataHeaderJson(item.Key, item.Value));
+            return result.ToList();
         }
 
         /// <summary>
@@ -215,7 +220,7 @@ namespace SocketLabs.InjectionApi.Core
         internal virtual List<string> PopulateTags(IList<string> tags)
         {
             var result = tags.ToList();
-            return result?.ToList();
+            return result;
         }
     }
 }

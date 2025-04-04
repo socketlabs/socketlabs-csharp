@@ -5,7 +5,7 @@ namespace SocketLabs.InjectionApi.Core
     /// <summary>
     /// Parses a provided api key and provides a result
     /// </summary>
-    public class ApiKeyParser : IApiKeyParser
+    internal class ApiKeyParser : IApiKeyParser
     {
         /// <summary>
         /// Parses the provided Api key.

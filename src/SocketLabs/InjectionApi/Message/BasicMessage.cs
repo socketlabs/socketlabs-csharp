@@ -50,7 +50,7 @@ namespace SocketLabs.InjectionApi.Message
         /// <remarks>
         /// (Required )
         /// </remarks> 
-        public string Subject { get; set; }
+        public string? Subject { get; set; }
 
         /// <summary>
         /// Gets or sets the plain text portion of the message body.        
@@ -59,7 +59,7 @@ namespace SocketLabs.InjectionApi.Message
         /// (Optional)
         /// Either PlainTextBody or HtmlBody must be used with the AmpBody or use a ApiTemplate
         /// </remarks> 
-        public string PlainTextBody { get; set; }
+        public string? PlainTextBody { get; set; }
 
         /// <summary>
         /// Gets or sets the HTML portion of the message body.
@@ -68,7 +68,7 @@ namespace SocketLabs.InjectionApi.Message
         /// (Optional)
         /// Either PlainTextBody or HtmlBody must be used with the AmpBody or use a ApiTemplate
         /// </remarks> 
-        public string HtmlBody { get; set; }
+        public string? HtmlBody { get; set; }
 
         /// <summary>
         /// Gets or sets the AMP portion of the message body.
@@ -78,7 +78,7 @@ namespace SocketLabs.InjectionApi.Message
         /// Either PlainTextBody or HtmlBody must be used with the AmpBody or use a ApiTemplate
         /// See https://amp.dev/documentation/ for more information on AMP implementation
         /// </remarks> 
-        public string AmpBody { get; set; }
+        public string? AmpBody { get; set; }
 
         /// <summary>
         /// Gets or sets the Api Template for the message.
@@ -96,7 +96,7 @@ namespace SocketLabs.InjectionApi.Message
         /// (Optional)
         /// See https://www.socketlabs.com/blog/best-practices-for-using-custom-mailingids-and-messageids/ for more information.
         /// </remarks> 
-        public string MailingId { get; set; }
+        public string? MailingId { get; set; }
 
         /// <summary>
         /// Gets or sets the custom MessageId for the message.
@@ -104,7 +104,7 @@ namespace SocketLabs.InjectionApi.Message
         /// <remarks>
         /// (Optional)
         /// </remarks> 
-        public string MessageId { get; set; }
+        public string? MessageId { get; set; }
 
         /// <summary>
         /// Gets or sets the From address.
@@ -160,7 +160,7 @@ namespace SocketLabs.InjectionApi.Message
         /// <remarks>
         /// (Optional) Default is UTF8
         /// </remarks> 
-        public string CharSet { get; set; }
+        public string CharSet { get; set; } = "utf-8";
 
         /// <summary>
         /// A list of custom message headers added to the message.

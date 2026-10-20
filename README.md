@@ -1,9 +1,9 @@
-[![SocketLabs](https://s3.amazonaws.com/static.socketlabs/logos/logo-dark-317x40.svg)](https://www.socketlabs.com/developers)  
+[![SocketLabs](https://static.socketlabs.com/logos/v3/logo-dark.svg)](https://www.socketlabs.com/developers)  
 
-[![Twitter Follow](https://img.shields.io/twitter/follow/socketlabs.svg?style=social&label=Follow)](https://twitter.com/socketlabs) 
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE.md) 
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/socketlabs/socketlabs-csharp/blob/master/CONTRIBUTING.md)
-[![GitHub contributors](https://img.shields.io/github/contributors/socketlabs/socketlabs-csharp.svg)](https://github.com/socketlabs/csharp-socketlabs/graphs/contributors)
+[![Twitter Follow](https://img.shields.io/twitter/follow/socketlabs.svg?style=social&label=Follow)](https://x.com/socketlabs) 
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md) 
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![GitHub contributors](https://img.shields.io/github/contributors/socketlabs/socketlabs-csharp.svg)](https://github.com/socketlabs/socketlabs-csharp/graphs/contributors)
 ![](https://dev.azure.com/socketlabs/Public%20Projects/_apis/build/status/CSharp-CI?branchName=main)
 
 
